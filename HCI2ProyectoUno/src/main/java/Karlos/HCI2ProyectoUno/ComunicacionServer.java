@@ -16,23 +16,38 @@ public class ComunicacionServer {
 	 */
 	private int puerto;
 	private ServerSocket ss;
-	private Socket cliente;
+	Socket cliente;
 
+	
+	public boolean conectado=false;
 
 
 	public ComunicacionServer(int i) 
 	{
 		puerto = i;
-
-		try {
-			ss = new ServerSocket(i);
-			System.out.println("Socket server iniciado");
-			cliente = ss.accept();
-			System.out.println("Conectado exitosamente :)");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		new Thread(hilo()).start();;
+System.out.println("esperando cliente");
+		new Thread(hiloInit()).start();;
+	}
+	
+	private Runnable hiloInit(){
+		Runnable i= new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					ss = new ServerSocket(puerto);
+					System.out.println("Socket server iniciado");
+					cliente = ss.accept();
+					System.out.println("Conectado exitosamente :)");
+					conectado=true; //por si el otro metodo falla
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				new Thread(hilo()).start();
+				
+			}
+		};
+		return i;
 	}
 
 	private Runnable hilo() 

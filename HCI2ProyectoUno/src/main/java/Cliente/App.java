@@ -10,16 +10,20 @@ public class App extends PApplet
 	public void settings()
 	{
 		size(1280,720);
-		log= new Logica();
+		log= new Logica(this);
 	}
 	
 	public void setup()
 	{
 		System.out.println("hola");
+		textAlign(CENTER);
+		rectMode(CENTER);
+		imageMode(CENTER);
 	}
 	
 	public void draw(){
 		background(255);
+		log.pintar();
 	}
 	
 	

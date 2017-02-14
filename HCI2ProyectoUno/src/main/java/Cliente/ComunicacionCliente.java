@@ -17,23 +17,44 @@ public class ComunicacionCliente {
 	 * trabajar y le indica al cliente que archivo cargar.
 	 */
 	private int puerto;
-	ServerSocket ss;
-	private Socket servidor;
+
+	Socket servidor;
 	
 
 
 	public ComunicacionCliente(int i) {
 		puerto = i;
+
+		new Thread(hiloInit()).start();
+	}
 	
-		try {
-			servidor = new Socket(InetAddress.getByName("127.0.0.1"), puerto);
-			System.out.println("exito!");
-		} catch (UnknownHostException uhe) {
-			uhe.printStackTrace();
-		} catch (IOException io) {
-			io.printStackTrace();
-		}
-		new Thread(hilo()).start();
+	
+	private Runnable hiloInit(){
+		Runnable r= new Runnable() {
+			
+			@Override
+			public void run() {
+				while(servidor ==null){
+					try {
+						servidor = new Socket(InetAddress.getByName("127.0.0.1"), puerto);
+						System.out.println("exito!");
+						new Thread(hilo()).start(); //si se conecta empiezo hilo para comenzar a recibir
+						
+					} catch (UnknownHostException uhe) {
+						uhe.printStackTrace();
+					} catch (IOException io) {
+						io.printStackTrace(); //si se rechaza la connection, lo vuelvo a intentar
+						try {
+							Thread.sleep(3000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				
+			}
+		};
+		return r;
 	}
 
 	/*

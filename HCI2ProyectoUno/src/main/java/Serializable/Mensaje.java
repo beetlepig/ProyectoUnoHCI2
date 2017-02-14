@@ -1,5 +1,7 @@
 package Serializable;
 
-public class Mensaje {
+import java.io.Serializable;
+
+public class Mensaje implements Serializable {
 
 }
