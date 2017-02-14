@@ -3,7 +3,9 @@ package Karlos.HCI2ProyectoUno;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -71,18 +73,22 @@ System.out.println("esperando cliente");
 
 	public void recibir() 
 	{
-		
+		InputStream entrada;
 		ObjectInputStream entradaObjeto;
+		Object o;
 		
 		try {
-		
-			entradaObjeto= new ObjectInputStream(cliente.getInputStream());
-			
-
+		    entrada= cliente.getInputStream();
+			entradaObjeto= new ObjectInputStream(entrada);
+			o= entradaObjeto.readObject();
+            System.out.println("llego objeto");
 			
 
 
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -105,6 +111,24 @@ System.out.println("esperando cliente");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	public void enviarObjeto(Object o){
+		
+		ObjectOutputStream salidaObjeto;
+		OutputStream salida;
+		
+		try{
+			salida= cliente.getOutputStream();
+			salidaObjeto= new ObjectOutputStream(salida);
+			salidaObjeto.writeObject(o);
+			System.out.println("objeto enviado");
+			salidaObjeto.flush();
+		} catch (IOException e) {
+		     e.printStackTrace();
+		}
+		
 	}
 
 

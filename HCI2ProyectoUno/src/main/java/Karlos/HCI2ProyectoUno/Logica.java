@@ -1,17 +1,22 @@
 package Karlos.HCI2ProyectoUno;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import Serializable.Mensaje;
 import processing.core.PApplet;
 
-public class Logica 
+public class Logica implements Observer
 {
-	private ComunicacionServer server;
-	PApplet app;        
-
+	ComunicacionServer server;
+	private PApplet app;        
+    Mensaje mj;
 	
 	int estado=0;
 	
 	
 	boolean checkInstrucciones=false;
+	boolean checkInstruccionesOtroJugador=false;
 	
 	public Logica(PApplet app)
 	{
@@ -81,6 +86,13 @@ public class Logica
 			app.fill(0);
 		}
 		app.rect(app.width-60, app.height-60, 30, 30);
+	}
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

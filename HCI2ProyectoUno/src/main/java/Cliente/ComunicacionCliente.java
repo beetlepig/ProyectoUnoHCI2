@@ -4,13 +4,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Observable;
 
-public class ComunicacionCliente {
+public class ComunicacionCliente extends Observable{
 
 	/*
 	 * En data archivos con opciones de puestas, el servidor escoje con cual
@@ -84,24 +87,23 @@ public class ComunicacionCliente {
 	}
 
 	public void recibir() {
+		
 		InputStream entradaBytes;
-		DataInputStream entradaDatos;
+		ObjectInputStream entradaObjeto;
+		Object o;
 		try {
 			entradaBytes = servidor.getInputStream();
-			entradaDatos = new DataInputStream(entradaBytes);
-			String mensaje = entradaDatos.readUTF();
-			System.out.println("aviso recibido:  " + mensaje);
-
-			// si llega turno revisa si mi turno es igual o menor al turno del
-			// otro jugador, si es asi turnoActivo=true;
-			if (mensaje.contains("turno")) {
-				String[] partes = mensaje.split("/");
+			entradaObjeto = new ObjectInputStream(entradaBytes);
+			o= entradaObjeto.readObject();
+			System.out.println("llego objeto");
 
 			
-			}
 
 
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -125,6 +127,28 @@ public class ComunicacionCliente {
 			e.printStackTrace();
 		}
 	}
+	
+	public void enviarObjeto(Object o){
+		OutputStream salida;
+		ObjectOutputStream salidaObjeto;
+		Object ob;
+		
+		try {
+			ob=o;
+			salida= servidor.getOutputStream();
+			salidaObjeto= new ObjectOutputStream(salida);
+			salidaObjeto.writeObject(ob);
+			System.out.println("objeto enviado");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
 
 
 

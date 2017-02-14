@@ -3,7 +3,7 @@ package Cliente;
 import processing.core.PApplet;
 
 public class Logica {
-  private ComunicacionCliente com;
+  ComunicacionCliente com;
   PApplet app;
   private int estados=0;
   boolean checkInstrucciones=false;
