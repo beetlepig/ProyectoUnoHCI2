@@ -9,7 +9,7 @@ public class App extends PApplet
 	public void settings()
 	{
 		size(1280,720);
-		log= new Logica(this, width, height);
+		log= new Logica(this);
 	}
 	
 	public void setup()
@@ -34,7 +34,15 @@ public class App extends PApplet
     
     public void mousePressed()
     {
+    	println(mouseX, mouseY);
+		if( (mouseX>width-75 && mouseX<width-45) &&  (mouseY>height-75 && mouseY<height-45) ){
+			if(!log.checkInstrucciones){
+			log.checkInstrucciones=true;
+			} else {
+				log.checkInstrucciones=false;
+			}
 		
+		}
 	}
     
 }

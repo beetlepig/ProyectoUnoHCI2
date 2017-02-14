@@ -6,7 +6,8 @@ public class Logica {
   private ComunicacionCliente com;
   PApplet app;
   private int estados=0;
-
+  boolean checkInstrucciones=false;
+  
 	public Logica(PApplet app) {
 		this.app=app;
 		com= new ComunicacionCliente(3010);
@@ -22,9 +23,8 @@ public class Logica {
 			break;
 
 		case 1:
-			app.fill(0);
-			app.text("instrucciones", app.width/2, app.height/2);
-			System.out.println("caso 1");
+	
+			segundaPantalla();
 			break;
 			
 			
@@ -54,6 +54,18 @@ public class Logica {
 			
 			estados=1;
 		}
+	}
+	
+	
+	private void segundaPantalla(){
+
+		app.text("pantallaDos", 100, 100);
+		if(checkInstrucciones){
+			app.fill(0,200,0);
+		} else{
+			app.fill(0);
+		}
+		app.rect(app.width-60, app.height-60, 30, 30);
 	}
 
 }

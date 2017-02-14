@@ -6,16 +6,17 @@ public class Logica
 {
 	private ComunicacionServer server;
 	PApplet app;        
-	int ancho;
-	int alto;
+
 	
 	int estado=0;
 	
-	public Logica(PApplet app,int ancho, int alto)
+	
+	boolean checkInstrucciones=false;
+	
+	public Logica(PApplet app)
 	{
 		this.app=app;
-		this.ancho=ancho;
-		this.alto=alto;
+
 		server= new ComunicacionServer(3010);
 		
 		
@@ -31,8 +32,7 @@ public class Logica
 			break;
 
 		case 1:
-			app.fill(0);
-			app.text("pantallaDos", 100, 100);
+			segundaPantalla();
 			
 			
 			break;
@@ -63,13 +63,24 @@ public class Logica
 		if(server.cliente == null){
 			app.fill(0);
 			app.textSize(20);
-			app.text("Esperando jugador", ancho-100, alto-20);
+			app.text("Esperando jugador", app.width-100, app.height-20);
 			
-		    app.rect(ancho/2, alto/2, 200, 100);
+		    app.rect(app.width/2, app.height/2, 200, 100);
 		
 		}else {
 			estado=1;
 		}
+	}
+	
+	private void segundaPantalla(){
+
+		app.text("pantallaDos", 100, 100);
+		if(checkInstrucciones){
+			app.fill(0,200,0);
+		} else{
+			app.fill(0);
+		}
+		app.rect(app.width-60, app.height-60, 30, 30);
 	}
 	
 	
