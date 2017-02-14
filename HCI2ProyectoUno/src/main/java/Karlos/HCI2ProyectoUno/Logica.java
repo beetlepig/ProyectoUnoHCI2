@@ -47,7 +47,7 @@ public class Logica implements Observer
 		case 2:
 			
 			
-			
+			terceraPantalla();
 			
 			break;
 			
@@ -89,6 +89,12 @@ public class Logica implements Observer
 		}
 		app.rect(app.width-60, app.height-60, 30, 30);
 	}
+	
+	
+	private void terceraPantalla(){
+		app.fill(0);
+		app.text("pantallaTres", 100, 100);
+	}
 
 
 	@Override
@@ -97,6 +103,7 @@ public class Logica implements Observer
 	
 		if(ob instanceof Mensaje){
 			mj=(Mensaje) ob;
+			System.out.println(mj.checkeado);
 		}
 		
 	}
@@ -111,13 +118,16 @@ public class Logica implements Observer
 				
 				while(true){
 					try {
+						//actualizo variables a partir del objeto mj
+						if(mj!= null){
+							checkInstruccionesOtroJugador= mj.checkeado;
+						}
+						
 						switch (estado) {
 						case 1:
-							if(mj!= null){
-								checkInstrucciones= mj.checkeado;
-							}
+							
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
-								//enviar algo	
+								estado=2;
 								}
 							break;
 

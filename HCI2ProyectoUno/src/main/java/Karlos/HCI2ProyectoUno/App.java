@@ -37,14 +37,14 @@ public class App extends PApplet
     {
     	//println(mouseX, mouseY);
 		if( (mouseX>width-75 && mouseX<width-45) &&  (mouseY>height-75 && mouseY<height-45) ){
-			Mensaje mj= new Mensaje(log.checkInstrucciones);
-			log.server.enviarObjeto(mj);
+			
 			if(!log.checkInstrucciones){
 			log.checkInstrucciones=true;
 			} else {
 				log.checkInstrucciones=false;
 			}
-		
+			Mensaje mj= new Mensaje(log.checkInstrucciones);
+			log.server.enviarObjeto(mj);
 		}
 	}
     
