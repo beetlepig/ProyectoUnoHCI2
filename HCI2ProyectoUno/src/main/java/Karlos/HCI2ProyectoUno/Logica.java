@@ -25,7 +25,7 @@ public class Logica implements Observer
 		server= new ComunicacionServer(3010);
 		server.addObserver(this);
 
-		
+		new Thread(comprobaciones()).start();
 		
 	}
 	
@@ -100,6 +100,51 @@ public class Logica implements Observer
 		}
 		
 	}
+	
+	
+	private Runnable comprobaciones(){
+		
+		Runnable r= new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				while(true){
+					try {
+						switch (estado) {
+						case 1:
+							if(mj!= null){
+								checkInstrucciones= mj.checkeado;
+							}
+								if(checkInstrucciones && checkInstruccionesOtroJugador){
+								//enviar algo	
+								}
+							break;
+
+						case 2:
+							
+							break;
+						}
+						
+						Thread.sleep(200);
+						
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+			
+					
+				}
+				
+			}
+		};
+		
+		
+		return r;
+		
+	}
+	
+	
 	
 	
 	
