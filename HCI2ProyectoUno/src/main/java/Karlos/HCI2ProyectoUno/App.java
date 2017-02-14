@@ -4,10 +4,12 @@ import processing.core.PApplet;
 
 public class App extends PApplet
 {
+	Logica log;
 	
 	public void settings()
 	{
 		size(1280,720);
+		log= new Logica();
 	}
 	
 	public void setup()

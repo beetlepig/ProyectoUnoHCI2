@@ -26,6 +26,7 @@ public class ComunicacionServer {
 
 		try {
 			ss = new ServerSocket(i);
+			System.out.println("Socket server iniciado");
 			cliente = ss.accept();
 			System.out.println("Conectado exitosamente :)");
 		} catch (IOException e) {
