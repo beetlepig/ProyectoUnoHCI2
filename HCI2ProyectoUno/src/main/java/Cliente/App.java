@@ -1,12 +1,35 @@
 package Cliente;
 
+
 import processing.core.PApplet;
 
-public class App extends PApplet {
+public class App extends PApplet 
+{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public void settings()
+	{
+		size(1280,720);
+	}
+	
+	public void setup()
+	{
+		System.out.println("hola");
+	}
+	
+	public void draw(){
+		background(255);
+	}
+	
+	
+    public static void main( String[] args )
+    {
+        PApplet.main(App.class.getName());
+        
+    }
+    
+    public void mousePressed()
+    {
+		
 	}
 
 }
