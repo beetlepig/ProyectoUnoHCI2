@@ -96,7 +96,10 @@ public class ComunicacionCliente extends Observable{
 			entradaObjeto = new ObjectInputStream(entradaBytes);
 			o= entradaObjeto.readObject();
 			System.out.println("llego objeto");
-
+			
+            setChanged();        
+            notifyObservers(o);
+            clearChanged();
 			
 
 

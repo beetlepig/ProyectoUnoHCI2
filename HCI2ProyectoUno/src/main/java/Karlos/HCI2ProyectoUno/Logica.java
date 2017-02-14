@@ -23,6 +23,8 @@ public class Logica implements Observer
 		this.app=app;
 
 		server= new ComunicacionServer(3010);
+		server.addObserver(this);
+
 		
 		
 	}
@@ -91,7 +93,11 @@ public class Logica implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+	Object ob=arg;
+	
+		if(ob instanceof Mensaje){
+			mj=(Mensaje) ob;
+		}
 		
 	}
 	

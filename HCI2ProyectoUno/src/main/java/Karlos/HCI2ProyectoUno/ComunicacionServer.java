@@ -9,8 +9,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Observable;
 
-public class ComunicacionServer {
+public class ComunicacionServer extends Observable{
 	
 	/*
 	 * En data archivos con opciones de puestas, el servidor escoje con cual
@@ -82,11 +83,17 @@ System.out.println("esperando cliente");
 			entradaObjeto= new ObjectInputStream(entrada);
 			o= entradaObjeto.readObject();
             System.out.println("llego objeto");
+            
+            setChanged();
+            notifyObservers(o);
+            clearChanged();
 			
 
 
 		} catch (IOException e) {
+			
 			e.printStackTrace();
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

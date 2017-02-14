@@ -1,16 +1,22 @@
 package Cliente;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import Serializable.Mensaje;
 import processing.core.PApplet;
 
-public class Logica {
+public class Logica implements Observer{
   ComunicacionCliente com;
   PApplet app;
   private int estados=0;
   boolean checkInstrucciones=false;
+  Mensaje mj;
   
 	public Logica(PApplet app) {
 		this.app=app;
 		com= new ComunicacionCliente(3010);
+		com.addObserver(this);
 	}
 	
 	
@@ -66,6 +72,18 @@ public class Logica {
 			app.fill(0);
 		}
 		app.rect(app.width-60, app.height-60, 30, 30);
+	}
+
+
+
+	@Override
+	public void update(Observable o, Object arg) {
+	Object ob=arg;
+	
+		if(ob instanceof Mensaje){
+			mj=(Mensaje) ob;
+		}
+		
 	}
 
 }
