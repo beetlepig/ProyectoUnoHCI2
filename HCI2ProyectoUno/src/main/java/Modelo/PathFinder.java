@@ -115,6 +115,7 @@ public class PathFinder {
 			
 		  startNode = gs.getNodeAt(mouseX - offX, mouseY - offY, 0, 16.0f); // este es el metodo que crea el nodo inicial
 			if (startNode != null)
+			
 				selectMode = true;
 		}
 	}
@@ -125,6 +126,7 @@ public class PathFinder {
 		 * sobre el cual paso.
 		 */
 		if (selectMode){
+			System.out.println("entro");
 			endNode = gs.getNodeAt(mouseX - offX, mouseY - offY, 0, 16.0f);
 			//este es el metodo que crea el nodo final
 		}

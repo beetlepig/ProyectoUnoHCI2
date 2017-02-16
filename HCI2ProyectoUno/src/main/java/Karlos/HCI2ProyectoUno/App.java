@@ -62,7 +62,7 @@ public class App extends PApplet
     	}
     }
     
-    public void mouseDraagged(){
+    public void mouseDragged(){
     	if(log.estado==2){
     	log.rutas.mouseDragged(mouseX, mouseY);
     	}
