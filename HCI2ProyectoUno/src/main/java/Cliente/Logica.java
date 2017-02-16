@@ -86,8 +86,10 @@ public class Logica implements Observer{
 		app.text("Izquierda", 600, 400);
 		app.text("Derecha", 1000, 400);
 		app.text("Derecho", 800, 200);
-		g= rutas.rNodes; //actualizar pero mediante tcp
+		//g= rutas.rNodes; //actualizar pero mediante tcp
+		if(g!=null){
 		posicionesJugador(g);
+		}
 	}
 	
 	
@@ -133,6 +135,8 @@ public class Logica implements Observer{
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
 									rutas= new PathFinder(app,292,195);
+									GraphNode[] o= rutas.rNodes;
+									   com.enviarObjeto(new Mensaje(o));
 								estados=2;
 								}
 						
@@ -171,6 +175,9 @@ public class Logica implements Observer{
 	
 		if(ob instanceof Mensaje){
 			mj=(Mensaje) ob;
+			if(mj.nodos!=null && estados==2){
+				g=mj.nodos;
+			}
 		}
 		
 	}
