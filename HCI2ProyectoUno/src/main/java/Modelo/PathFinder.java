@@ -27,7 +27,7 @@ public class PathFinder {
 	int algorithm;
 
 	int overAlgorithm, overOption, overGraph;
-	int offX = 10, offY = 10;
+	int offX = 150, offY = 400;
 
 	boolean[] showOption = new boolean[3];
 
@@ -44,7 +44,8 @@ public class PathFinder {
 
 	public PathFinder(PApplet app) {
 		this.app=app;
-		
+	//	offX = (int) (app.width*0.6F);
+	//	offY = (int) (app.height*0.5F);
 
 		/*
 		 * MAP 1 : The maze created in the same way as the first map but has
@@ -52,9 +53,9 @@ public class PathFinder {
 		 */
 		// graphNo = 1;
 		nodeSize = 15.0f;
-		graphImage = app.loadImage("../data/Laberinto.png");
+		graphImage = app.loadImage("../data/Laberinto-1.png");
 		gs = new Graph();
-		makeGraphFromBWimage(gs, graphImage, null, 17, 17, false);
+		makeGraphFromBWimage(gs, graphImage, null, 16, 17, false);
 		gNodes = gs.getNodeArray();
 		end = gNodes[(int) app.random(0, gNodes.length / 4)].id();
 		do
@@ -81,7 +82,7 @@ public class PathFinder {
 		app.pushMatrix();
 		app.translate(offX, offY);
 		if (graphImage != null)
-			app.image(graphImage, 0, 0);
+			app.image(graphImage, +6, -6);
 		// println(mouseX+" "+mouseY);
 
 		/*
@@ -290,7 +291,7 @@ public class PathFinder {
 		int dy = backImg.height / tilesY;
 		int sx = dx / 2, sy = dy / 2;
 		// use deltaX to avoid horizontal wrap around edges
-		int deltaX = tilesX + 1; // must be > tilesX
+		int deltaX = tilesX + 3; // must be > tilesX
 
 		float hCost = dx, vCost = dy, dCost = app.sqrt(dx * dx + dy * dy);
 		float cost = 0;
