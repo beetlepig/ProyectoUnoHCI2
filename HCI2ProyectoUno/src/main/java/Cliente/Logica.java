@@ -3,15 +3,19 @@ package Cliente;
 import java.util.Observable;
 import java.util.Observer;
 
+import Modelo.PathFinder;
 import Serializable.Mensaje;
+import pathfinder.GraphNode;
 import processing.core.PApplet;
 
 public class Logica implements Observer{
   ComunicacionCliente com;
   PApplet app;
-  private int estados=0;
+  int estados=0;
   boolean checkInstrucciones=false;
   Mensaje mj;
+  PathFinder rutas;
+	GraphNode[] g;
   
 	public Logica(PApplet app) {
 		this.app=app;
@@ -77,7 +81,36 @@ public class Logica implements Observer{
 	
 	private void terceraPantalla () {
 		app.fill(0);
-		app.text("pantallaTres", 100, 100);
+		app.text("pantallaTres cliente", 100, 100);
+		rutas.pintar();
+		app.text("Izquierda", 600, 400);
+		app.text("Derecha", 1000, 400);
+		app.text("Derecho", 800, 200);
+		g= rutas.rNodes; //actualizar pero mediante tcp
+		posicionesJugador(g);
+	}
+	
+	
+	
+	private void posicionesJugador(GraphNode[] r){
+		app.pushMatrix();
+		app.translate(rutas.offX, rutas.offY);
+			if (r.length >= 2) {
+				app.pushStyle();
+				// Route start node
+				app.strokeWeight(2.0f);
+				app.stroke(0, 0, 160);
+				app.fill(0, 0, 255);
+				app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
+				// Route end node
+				app.stroke(0, 250, 0);
+				app.fill(0, 250, 0);
+				app.ellipse(r[r.length - 1].xf(), r[r.length - 1].yf(), 10, 10);
+				
+				app.popStyle();
+			}
+			app.popMatrix();
+		
 	}
 	
 	
@@ -99,6 +132,7 @@ public class Logica implements Observer{
 						case 1:
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
+									rutas= new PathFinder(app,292,195);
 								estados=2;
 								}
 						

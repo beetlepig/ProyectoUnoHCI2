@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import Modelo.PathFinder;
 import Serializable.Mensaje;
+import pathfinder.GraphNode;
 import processing.core.PApplet;
 
 public class Logica implements Observer
@@ -18,6 +19,8 @@ public class Logica implements Observer
 	
 	boolean checkInstrucciones=false;
 	boolean checkInstruccionesOtroJugador=false;
+	private Object startNode;
+	GraphNode[] g;
 	
 	public Logica(PApplet app)
 	{
@@ -94,15 +97,19 @@ public class Logica implements Observer
 	
 	
 	private void terceraPantalla(){
-	//	app.fill(0);
-	//	app.text("pantallaTres", 100, 100);
-	//	rutas= new PathFinder(app);
+		app.fill(0);
+		app.text("pantallaTres", 100, 100);
 		rutas.pintar();
+		app.text("Izquierda", 600, 400);
+		app.text("Derecha", 1000, 400);
+		app.text("Derecho", 800, 200);
+		g= rutas.rNodes;
+		posicionesJugador(g);
 		
 	}
 
 
-	@Override
+
 	public void update(Observable o, Object arg) {
 	Object ob=arg;
 	
@@ -113,12 +120,33 @@ public class Logica implements Observer
 		
 	}
 	
+	private void posicionesJugador(GraphNode[] r){
+		app.pushMatrix();
+		app.translate(rutas.offX, rutas.offY);
+			if (r.length >= 2) {
+				app.pushStyle();
+				// Route start node
+				app.strokeWeight(2.0f);
+				app.stroke(0, 0, 160);
+				app.fill(0, 0, 255);
+				app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
+				// Route end node
+				app.stroke(0, 250, 0);
+				app.fill(0, 250, 0);
+				app.ellipse(r[r.length - 1].xf(), r[r.length - 1].yf(), 10, 10);
+				
+				app.popStyle();
+			}
+			app.popMatrix();
+		
+	}
+	
 	
 	private Runnable comprobaciones(){
 		
 		Runnable r= new Runnable() {
 			
-			@Override
+
 			public void run() {
 				
 				while(true){
@@ -132,7 +160,8 @@ public class Logica implements Observer
 						case 1:
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador && estado==1){
-									rutas= new PathFinder(app);
+									rutas= new PathFinder(app,157,105);
+								//    server.enviarObjeto(new Mensaje(rutas.rNodes));
 									estado=2;
 								
 								}

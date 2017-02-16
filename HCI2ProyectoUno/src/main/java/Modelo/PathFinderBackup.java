@@ -15,24 +15,23 @@ import pathfinder.IGraphSearch;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class PathFinder {
+public class PathFinderBackup {
 
-	public Graph gs;
+	Graph gs;
 	PImage graphImage;
 	int start;
 	int end;
-	public float nodeSize;
+	float nodeSize;
 
 	int graphNo = 0;
 	int algorithm;
 
 	int overAlgorithm, overOption, overGraph;
-	public int offX = 150;
-	public int offY = 400;
+	int offX = 150, offY = 400;
 
 	boolean[] showOption = new boolean[3];
 
-	public GraphNode[] gNodes, rNodes;
+	GraphNode[] gNodes, rNodes;
 	GraphEdge[] gEdges, exploredEdges;
 	IGraphSearch pathFinder;
 
@@ -43,7 +42,7 @@ public class PathFinder {
 	long time;
 	PApplet app;
 
-	public PathFinder(PApplet app, int comienzo, int fin) {
+	public PathFinderBackup(PApplet app) {
 		this.app=app;
 	//	offX = (int) (app.width*0.6F);
 	//	offY = (int) (app.height*0.5F);
@@ -58,9 +57,9 @@ public class PathFinder {
 		gs = new Graph();
 		makeGraphFromBWimage(gs, graphImage, null, 16, 17, false);
 		gNodes = gs.getNodeArray();
-		end = fin; //157 server
+		end = gNodes[(int) app.random(0, gNodes.length / 4)].id();
 		do
-			start = comienzo; //105 server
+			start = gNodes[(int) app.random((3 * gNodes.length) / 4, gNodes.length / 4)].id();
 		while (start == end);
 		gs.compact();
 
@@ -77,7 +76,7 @@ public class PathFinder {
 		System.out.println("--------------Pasos realizados-----------");
 		System.out.println(getSequence());
 	}
- 
+
 	public void pintar() {
 		// background(backImage);
 		app.pushMatrix();
@@ -105,8 +104,6 @@ public class PathFinder {
 		app.popMatrix();
 	}
 	
-	
-	
 
 	public void mousePressed(int mouseX, int mouseY) {
 		// Only consider a mouse press if over the map
@@ -119,7 +116,7 @@ public class PathFinder {
 			
 		  startNode = gs.getNodeAt(mouseX - offX, mouseY - offY, 0, 16.0f); // este es el metodo que crea el nodo inicial
 			if (startNode != null)
-			  System.out.println(startNode.id());
+			
 				selectMode = true;
 		}
 	}
@@ -130,7 +127,7 @@ public class PathFinder {
 		 * sobre el cual paso.
 		 */
 		if (selectMode){
-			//System.out.println("entro");
+			System.out.println("entro");
 			endNode = gs.getNodeAt(mouseX - offX, mouseY - offY, 0, 16.0f);
 			//este es el metodo que crea el nodo final
 		}
@@ -254,15 +251,14 @@ public class PathFinder {
 	 * @param lineCol - Color de la linea.
 	 * @param sWeight - Grosor de la linea.
 	 */
-	public void drawRoute(GraphNode[] r, int lineCol, float sWeight) {
+	void drawRoute(GraphNode[] r, int lineCol, float sWeight) {
 		if (r.length >= 2) {
 			app.pushStyle();
 			app.stroke(lineCol);
 			app.strokeWeight(sWeight);
 			app.noFill();
-			for (int i = 1; i < r.length; i++){
+			for (int i = 1; i < r.length; i++)
 				app.line(r[i - 1].xf(), r[i - 1].yf(), r[i].xf(), r[i].yf());
-			}
 			// Route start node
 			app.strokeWeight(2.0f);
 			app.stroke(0, 0, 160);
@@ -272,7 +268,6 @@ public class PathFinder {
 			app.stroke(0, 250, 0);
 			app.fill(0, 250, 0);
 			app.ellipse(r[r.length - 1].xf(), r[r.length - 1].yf(), nodeSize, nodeSize);
-			
 			app.popStyle();
 		}
 	}
