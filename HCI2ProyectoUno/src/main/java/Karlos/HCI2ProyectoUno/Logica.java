@@ -161,7 +161,8 @@ public class Logica implements Observer
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador && estado==1){
 									rutas= new PathFinder(app,157,105);
-								//    server.enviarObjeto(new Mensaje(rutas.rNodes));
+									Object o= rutas.rNodes;
+								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
 								
 								}

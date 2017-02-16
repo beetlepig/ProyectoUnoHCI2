@@ -8,7 +8,7 @@ import pathfinder.GraphNode;
 
 public class Mensaje implements Serializable {
 	public boolean checkeado;
-	GraphNode[] nodos;
+	Object nodos;
 	
 	
 	public Mensaje (boolean check){
@@ -16,8 +16,8 @@ public class Mensaje implements Serializable {
 		
 	}
 	
-	public Mensaje (GraphNode[] g){
-		nodos=g;
+	public Mensaje (Object o){
+		nodos=o;
 	}
 	
 	
