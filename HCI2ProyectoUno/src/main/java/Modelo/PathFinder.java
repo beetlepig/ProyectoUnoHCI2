@@ -52,9 +52,9 @@ public class PathFinder {
 		 */
 		// graphNo = 1;
 		nodeSize = 15.0f;
-		graphImage = app.loadImage("../data/maze2.png");
+		graphImage = app.loadImage("../data/Laberinto.png");
 		gs = new Graph();
-		makeGraphFromBWimage(gs, graphImage, null, 20, 20, false);
+		makeGraphFromBWimage(gs, graphImage, null, 17, 17, false);
 		gNodes = gs.getNodeArray();
 		end = gNodes[(int) app.random(0, gNodes.length / 4)].id();
 		do
