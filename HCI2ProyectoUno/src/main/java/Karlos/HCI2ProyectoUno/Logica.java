@@ -3,6 +3,7 @@ package Karlos.HCI2ProyectoUno;
 import java.util.Observable;
 import java.util.Observer;
 
+import Modelo.PathFinder;
 import Serializable.Mensaje;
 import processing.core.PApplet;
 
@@ -13,7 +14,7 @@ public class Logica implements Observer
     Mensaje mj;
 	
 	int estado=0;
-	
+	PathFinder rutas;
 	
 	boolean checkInstrucciones=false;
 	boolean checkInstruccionesOtroJugador=false;
@@ -26,6 +27,7 @@ public class Logica implements Observer
 		server.addObserver(this);
 
 		new Thread(comprobaciones()).start();
+	
 		
 	}
 	
@@ -92,8 +94,11 @@ public class Logica implements Observer
 	
 	
 	private void terceraPantalla(){
-		app.fill(0);
-		app.text("pantallaTres", 100, 100);
+	//	app.fill(0);
+	//	app.text("pantallaTres", 100, 100);
+	//	rutas= new PathFinder(app);
+		rutas.pintar();
+		
 	}
 
 
@@ -126,8 +131,10 @@ public class Logica implements Observer
 						switch (estado) {
 						case 1:
 							
-								if(checkInstrucciones && checkInstruccionesOtroJugador){
-								estado=2;
+								if(checkInstrucciones && checkInstruccionesOtroJugador && estado==1){
+									rutas= new PathFinder(app);
+									estado=2;
+								
 								}
 							break;
 

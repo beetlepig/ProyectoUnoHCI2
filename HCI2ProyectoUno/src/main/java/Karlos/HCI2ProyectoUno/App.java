@@ -16,9 +16,13 @@ public class App extends PApplet
 	public void setup()
 	{
 		System.out.println("hola");
-		imageMode(CENTER);
+	//	imageMode(CENTER);
 		textAlign(CENTER);
 		rectMode(CENTER);
+		ellipseMode(CENTER);
+		cursor(CROSS);
+		smooth();
+	
 	}
 	
 	public void draw(){
@@ -46,6 +50,24 @@ public class App extends PApplet
 			Mensaje mj= new Mensaje(log.checkInstrucciones);
 			log.server.enviarObjeto(mj);
 		}
+		if(log.estado==2){
+		log.rutas.mousePressed(mouseX, mouseY);
+		}
 	}
+    
+    public void mouseReleased(){
+    	System.out.println("entro released");
+    	if(log.estado==2){
+    	log.rutas.mouseReleased();
+    	}
+    }
+    
+    public void mouseDraagged(){
+    	if(log.estado==2){
+    	log.rutas.mouseDragged(mouseX, mouseY);
+    	}
+    }
+    
+   
     
 }
