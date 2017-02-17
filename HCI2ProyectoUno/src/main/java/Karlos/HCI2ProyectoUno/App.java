@@ -52,6 +52,7 @@ public class App extends PApplet
 		}
 		if(log.estado==2){
 		log.rutas.mousePressed(mouseX, mouseY);
+		log.movimiento(mouseX, mouseY);
 		}
 	}
     

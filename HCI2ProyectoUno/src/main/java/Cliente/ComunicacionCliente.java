@@ -73,7 +73,7 @@ public class ComunicacionCliente extends Observable{
 				while (true) {
 					recibir();
 					try {
-						Thread.sleep(100);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -132,20 +132,25 @@ public class ComunicacionCliente extends Observable{
 	}
 	
 	public void enviarObjeto(Object o){
-		OutputStream salida;
-		ObjectOutputStream salidaObjeto;
-		Object ob;
-		
-		try {
-			ob=o;
-			salida= servidor.getOutputStream();
-			salidaObjeto= new ObjectOutputStream(salida);
-			salidaObjeto.writeObject(ob);
-			System.out.println("objeto enviado");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ObjectOutputStream salidaObjeto;
+				OutputStream salida;
+				
+				try{
+					salida= servidor.getOutputStream();
+					salidaObjeto= new ObjectOutputStream(salida);
+					salidaObjeto.writeObject(o);
+					System.out.println("objeto enviado");
+					salidaObjeto.flush();
+				} catch (IOException e) {
+				     e.printStackTrace();
+				}
+				
+			}
+		}).start();
 		
 		
 	}

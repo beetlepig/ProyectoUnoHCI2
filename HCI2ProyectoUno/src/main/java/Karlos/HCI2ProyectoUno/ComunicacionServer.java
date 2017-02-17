@@ -61,7 +61,7 @@ System.out.println("esperando cliente");
 				while (true) {
 					recibir();
 					try {
-						Thread.sleep(100);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -122,19 +122,26 @@ System.out.println("esperando cliente");
 	
 	
 	public void enviarObjeto(Object o){
-		
-		ObjectOutputStream salidaObjeto;
-		OutputStream salida;
-		
-		try{
-			salida= cliente.getOutputStream();
-			salidaObjeto= new ObjectOutputStream(salida);
-			salidaObjeto.writeObject(o);
-			System.out.println("objeto enviado");
-			salidaObjeto.flush();
-		} catch (IOException e) {
-		     e.printStackTrace();
-		}
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				ObjectOutputStream salidaObjeto;
+				OutputStream salida;
+				
+				try{
+					salida= cliente.getOutputStream();
+					salidaObjeto= new ObjectOutputStream(salida);
+					salidaObjeto.writeObject(o);
+					System.out.println("objeto enviado");
+					salidaObjeto.flush();
+				} catch (IOException e) {
+				     e.printStackTrace();
+				}
+				
+			}
+		}).start();
+	
 		
 	}
 

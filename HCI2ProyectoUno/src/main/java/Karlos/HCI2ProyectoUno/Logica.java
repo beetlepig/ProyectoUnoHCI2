@@ -19,7 +19,7 @@ public class Logica implements Observer
 	
 	boolean checkInstrucciones=false;
 	boolean checkInstruccionesOtroJugador=false;
-	private Object startNode;
+	private GraphNode startNode;
 	GraphNode[] g;
 	
 	public Logica(PApplet app)
@@ -124,6 +124,21 @@ public class Logica implements Observer
 		
 	}
 	
+	 void movimiento(int mouseX, int mouseY){
+		app.println(mouseX,mouseY);
+		if( (mouseX>751 && mouseY<850) && (mouseY>175 && mouseY<2010)){
+			System.out.println("derecho");
+		//	startNode = rutas.gs.getNodeAt(g[0].xf() - rutas.offX, g[0].yf()-10 - rutas.offY, 0, 16.0f); 
+		//	if(startNode!=null){
+		//	System.out.println(startNode.id());
+		//	}
+			
+			
+		
+		}
+		
+	}
+	
 	private void posicionesJugador(GraphNode[] r){
 		app.pushMatrix();
 		app.translate(rutas.offX, rutas.offY);
@@ -168,6 +183,7 @@ public class Logica implements Observer
 									GraphNode[] o= rutas.rNodes;
 								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
+									
 								
 								}
 							break;
