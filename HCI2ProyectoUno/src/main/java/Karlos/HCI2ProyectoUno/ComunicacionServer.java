@@ -74,6 +74,8 @@ System.out.println("esperando cliente");
 
 	public void recibir() 
 	{
+		
+		
 		InputStream entrada;
 		ObjectInputStream entradaObjeto;
 		Object o;

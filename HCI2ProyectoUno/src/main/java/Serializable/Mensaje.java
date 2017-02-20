@@ -13,6 +13,7 @@ public class Mensaje implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public boolean checkeado;
 	public GraphNode[] nodos;
+	public GraphNode nodoInicial;
 	
 	
 	public Mensaje (boolean check){
@@ -22,6 +23,10 @@ public class Mensaje implements Serializable {
 	
 	public Mensaje (GraphNode[] o){
 		nodos=o;
+	}
+	
+	public Mensaje (GraphNode nodoInicial){
+		this.nodoInicial= nodoInicial;
 	}
 	
 	

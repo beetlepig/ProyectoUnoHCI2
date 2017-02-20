@@ -19,7 +19,7 @@ public class PathFinder {
 
 	public Graph gs;
 	PImage graphImage;
-	int start;
+	public int start;
 	int end;
 	public float nodeSize;
 
@@ -34,10 +34,10 @@ public class PathFinder {
 
 	public GraphNode[] gNodes, rNodes;
 	GraphEdge[] gEdges, exploredEdges;
-	IGraphSearch pathFinder;
+	public IGraphSearch pathFinder;
 
 	// Used to indicate the start and end nodes as selected by the user.
-	GraphNode startNode, endNode;
+	public GraphNode startNode, endNode;
 
 	boolean selectMode = false;
 	long time;
@@ -194,7 +194,7 @@ public class PathFinder {
  * a los metodos o funciones que tengan funciones visuales, de resto no
  * debe ser modificado. */
 	
-	void usePathFinder(IGraphSearch pf) {
+	public void usePathFinder(IGraphSearch pf) {
 		time = System.nanoTime();
 		pf.search(start, end, true);
 		time = System.nanoTime() - time;
