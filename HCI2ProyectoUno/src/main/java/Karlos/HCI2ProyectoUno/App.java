@@ -51,7 +51,7 @@ public class App extends PApplet
 			log.server.enviarObjeto(mj);
 		}
 		if(log.estado==2){
-		log.rutas.mousePressed(mouseX, mouseY);
+	//	log.rutas.mousePressed(mouseX, mouseY);
 		log.movimiento(mouseX, mouseY);
 		}
 	}
@@ -59,13 +59,13 @@ public class App extends PApplet
     public void mouseReleased(){
     //	System.out.println("entro released");
     	if(log.estado==2){
-    	log.rutas.mouseReleased();
+    //	log.rutas.mouseReleased();
     	}
     }
     
     public void mouseDragged(){
     	if(log.estado==2){
-    	log.rutas.mouseDragged(mouseX, mouseY);
+    //	log.rutas.mouseDragged(mouseX, mouseY);
     	}
     }
     
