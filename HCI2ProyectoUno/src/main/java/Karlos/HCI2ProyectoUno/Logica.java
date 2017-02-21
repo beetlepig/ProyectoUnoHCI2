@@ -23,6 +23,11 @@ public class Logica implements Observer
 	private GraphNode startNode;
 	GraphNode[] g;
 	int estadoRonda=0;
+	boolean sugeridoFinish=false;
+	String sugerencia;
+	
+	private boolean checkPopUpOtroJugador;
+	private boolean ckeckPopUp;
 	
 	public Logica(PApplet app)
 	{
@@ -103,7 +108,7 @@ public class Logica implements Observer
 		case 0:
 			app.fill(0);
 			
-			app.text("Sugiere una direccion para el otro jugador", 100, 100);
+			app.text("Sugiere una direccion para el otro jugador", 200, 100);
 			rutas.pintar();
 			
 			app.text("Izquierda", 600, 400);
@@ -117,7 +122,48 @@ public class Logica implements Observer
 			break;
 
 		case 1:
+			if(sugerencia==null){
+				app.text("esperando sugerencia del otro jugador", 300, 300);
+				} else {
+					app.fill(0);
+					
+					app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
+					rutas.pintar();
+					
+					app.text("Izquierda", 600, 400);
+					app.text("Derecha", 1000, 400);
+					app.text("Derecho", 800, 200);
+					app.text("Atras", 800, 600);
+				//	g= rutas.rNodes;
+					if(g!=null){
+					posicionesJugador(g);
+					}
+				}
+				
 			
+			
+			
+			break;
+			
+			
+		case 2:
+			app.fill(0);
+			
+			app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
+			rutas.pintar();
+			
+			app.text("Izquierda", 600, 400);
+			app.text("Derecha", 1000, 400);
+			app.text("Derecho", 800, 200);
+			app.text("Atras", 800, 600);
+		//	g= rutas.rNodes;
+			if(g!=null){
+			posicionesJugador(g);
+			}
+			app.fill(150);
+			app.rect(400,300, 400, 400);
+			app.fill(50);
+			app.text("aqui va el balance de confianza", 370, 230);
 			
 			
 			
@@ -146,6 +192,10 @@ public class Logica implements Observer
 				System.out.println("--------------Pasos realizados-----------");
 				System.out.println(rutas.getSequence());
 			}
+			
+			if(mj.indicacion!=null){
+				sugerencia=mj.indicacion;
+			}
 		}
 		
 	}
@@ -156,18 +206,18 @@ public class Logica implements Observer
 			
 			app.println(mouseX,mouseY);
 			if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
-				System.out.println("derecho");
+				System.out.println("arriba");
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("arriba")){
 					System.out.println("verdad para arriba");
-					
+					server.enviarObjeto(new Mensaje("arriba",true));
 				} else {
 					System.out.println("mentira para arriba");
-					
+					server.enviarObjeto(new Mensaje("arriba",false));
 				}
+				estadoRonda+=1;
 				
-				
-			//	server.enviarObjeto(new Mensaje(startNode));
+			
 				
 				
 				
@@ -179,39 +229,40 @@ public class Logica implements Observer
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("izq")){
 					System.out.println("verdad para izquierda");
-					
+					server.enviarObjeto(new Mensaje("izq",true));
 				} else {
 					System.out.println("mentira para izquierda");
-					
+					server.enviarObjeto(new Mensaje("izq",false));
 				}
-				
+				estadoRonda+=1;
 				
 				
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
-				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
-				if(startNode!=null){
-				System.out.println("id del nodo: "+startNode.id());
-				
-				g[0]=startNode;
-				
-				server.enviarObjeto(new Mensaje(startNode));
-				
-				
+				ArrayList<String> secuencia= rutas.getSequence();
+				if(secuencia.get(0).equals("der")){
+					System.out.println("verdad para derecha");
+					server.enviarObjeto(new Mensaje("der",true));
+				} else {
+					System.out.println("mentira para derecha");
+					server.enviarObjeto(new Mensaje("der",false));
 				}
+				
+				estadoRonda+=1;
+				
 				
 			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
 				System.out.println("atras");
-				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
-				if(startNode!=null){
-				System.out.println("id del nodo: "+startNode.id());
-				
-				g[0]=startNode;
-				
-				server.enviarObjeto(new Mensaje(startNode));
-				
-				
+				ArrayList<String> secuencia= rutas.getSequence();
+				if(secuencia.get(0).equals("abajo")){
+					System.out.println("verdad para abajo");
+					server.enviarObjeto(new Mensaje("abajo",true));
+				} else {
+					System.out.println("mentira para abajo");
+					server.enviarObjeto(new Mensaje("abajo",false));
 				}
+				estadoRonda+=1;
+				
 			}
 			
 			break;
@@ -232,7 +283,7 @@ public class Logica implements Observer
 				
 				
 				}
-				
+				estadoRonda+=1;
 				
 			
 			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
@@ -247,6 +298,7 @@ public class Logica implements Observer
 					
 					
 					}
+					estadoRonda+=1;
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
@@ -259,7 +311,7 @@ public class Logica implements Observer
 				
 				
 				}
-				
+				estadoRonda+=1;
 			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
@@ -272,6 +324,21 @@ public class Logica implements Observer
 				
 				
 				}
+				estadoRonda+=1;
+			}
+			
+			
+			break;
+			
+		
+			
+		case 2:
+			
+			if ((mouseX>200 && mouseX<600) && (mouseY>100 && mouseY<500)){
+				System.out.println("cerrar");
+				ckeckPopUp=true;
+				server.enviarObjeto(new Mensaje(true));
+				
 			}
 			
 			
@@ -310,6 +377,8 @@ public class Logica implements Observer
 		Runnable r= new Runnable() {
 			
 
+	
+
 			public void run() {
 				
 				while(true){
@@ -328,11 +397,22 @@ public class Logica implements Observer
 								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
 									
+									
 								
 								}
 							break;
 
 						case 2:
+							
+							if(mj!= null){
+								checkPopUpOtroJugador= mj.checkeado;
+							}
+							
+								if(ckeckPopUp && checkPopUpOtroJugador){
+									estadoRonda=0;
+									ckeckPopUp=false;
+									checkInstruccionesOtroJugador=false;
+								}
 							
 							break;
 						}

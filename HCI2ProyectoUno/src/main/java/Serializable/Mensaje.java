@@ -16,7 +16,7 @@ public class Mensaje implements Serializable {
 	public GraphNode nodoInicial;
 	public String indicacion;
 	public boolean dijoVerdad;
-		
+
 	
 	
 	public Mensaje (boolean check){
@@ -37,6 +37,9 @@ public class Mensaje implements Serializable {
 		this.dijoVerdad=verdadero;
 	}
 	
+
 	
+	
+
 	
 }
