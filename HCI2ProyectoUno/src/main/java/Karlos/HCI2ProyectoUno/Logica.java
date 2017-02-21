@@ -1,5 +1,6 @@
 package Karlos.HCI2ProyectoUno;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +22,7 @@ public class Logica implements Observer
 	boolean checkInstruccionesOtroJugador=false;
 	private GraphNode startNode;
 	GraphNode[] g;
+	int estadoRonda=0;
 	
 	public Logica(PApplet app)
 	{
@@ -97,17 +99,31 @@ public class Logica implements Observer
 	
 	
 	private void terceraPantalla(){
-		app.fill(0);
-		app.text("pantallaTres", 100, 100);
-		rutas.pintar();
-		app.text("Izquierda", 600, 400);
-		app.text("Derecha", 1000, 400);
-		app.text("Derecho", 800, 200);
-		app.text("Atras", 800, 600);
-	//	g= rutas.rNodes;
-		if(g!=null){
-		posicionesJugador(g);
+		switch (estadoRonda) {
+		case 0:
+			app.fill(0);
+			
+			app.text("Sugiere una direccion para el otro jugador", 100, 100);
+			rutas.pintar();
+			
+			app.text("Izquierda", 600, 400);
+			app.text("Derecha", 1000, 400);
+			app.text("Derecho", 800, 200);
+			app.text("Atras", 800, 600);
+		//	g= rutas.rNodes;
+			if(g!=null){
+			posicionesJugador(g);
+			}
+			break;
+
+		case 1:
+			
+			
+			
+			
+			break;
 		}
+		
 	}
 
 
@@ -135,27 +151,45 @@ public class Logica implements Observer
 	}
 	
 	 void movimiento(int mouseX, int mouseY){
-		app.println(mouseX,mouseY);
-		if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
-			System.out.println("derecho");
-			startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY-20 - rutas.offY, 0,10.0f); 
-			int imprimir= (int) (g[0].yf()+rutas.offY-5) ;
-			app.println("posicion apuntada:" + imprimir);
-			if(startNode!=null){
-			System.out.println("id del nodo: "+startNode.id());
+		 switch (estadoRonda) {
+		case 0:
 			
-			g[0]=startNode;
+			app.println(mouseX,mouseY);
+			if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
+				System.out.println("derecho");
+				ArrayList<String> secuencia= rutas.getSequence();
+				if(secuencia.get(0).equals("arriba")){
+					System.out.println("verdad para arriba");
+					
+				} else {
+					System.out.println("mentira para arriba");
+					
+				}
+				
+				
+			//	server.enviarObjeto(new Mensaje(startNode));
+				
+				
+				
+				
+				
 			
-			server.enviarObjeto(new Mensaje(startNode));
-			
-			
-			}
-			
-			
-		
-		} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
-			System.out.println("izquierda");
-				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX-17 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 16.0f); 
+			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
+				System.out.println("izquierda");
+				ArrayList<String> secuencia= rutas.getSequence();
+				if(secuencia.get(0).equals("izq")){
+					System.out.println("verdad para izquierda");
+					
+				} else {
+					System.out.println("mentira para izquierda");
+					
+				}
+				
+				
+				
+			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
+				System.out.println("derecha");
+				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
 				if(startNode!=null){
 				System.out.println("id del nodo: "+startNode.id());
 				
@@ -165,32 +199,85 @@ public class Logica implements Observer
 				
 				
 				}
-		} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
-			System.out.println("derecha");
-			startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
-			if(startNode!=null){
-			System.out.println("id del nodo: "+startNode.id());
-			
-			g[0]=startNode;
-			
-			server.enviarObjeto(new Mensaje(startNode));
-			
-			
+				
+			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
+				System.out.println("atras");
+				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
+				if(startNode!=null){
+				System.out.println("id del nodo: "+startNode.id());
+				
+				g[0]=startNode;
+				
+				server.enviarObjeto(new Mensaje(startNode));
+				
+				
+				}
 			}
 			
-		} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
-			System.out.println("atras");
-			startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
-			if(startNode!=null){
-			System.out.println("id del nodo: "+startNode.id());
+			break;
+
+		case 1:
+			app.println(mouseX,mouseY);
+			if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
+				System.out.println("derecho");
+				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY-20 - rutas.offY, 0,10.0f); 
+				int imprimir= (int) (g[0].yf()+rutas.offY-5) ;
+				app.println("posicion apuntada:" + imprimir);
+				if(startNode!=null){
+				System.out.println("id del nodo: "+startNode.id());
+				
+				g[0]=startNode;
+				
+				server.enviarObjeto(new Mensaje(startNode));
+				
+				
+				}
+				
+				
 			
-			g[0]=startNode;
-			
-			server.enviarObjeto(new Mensaje(startNode));
-			
-			
+			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
+				System.out.println("izquierda");
+					startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX-17 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 16.0f); 
+					if(startNode!=null){
+					System.out.println("id del nodo: "+startNode.id());
+					
+					g[0]=startNode;
+					
+					server.enviarObjeto(new Mensaje(startNode));
+					
+					
+					}
+			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
+				System.out.println("derecha");
+				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
+				if(startNode!=null){
+				System.out.println("id del nodo: "+startNode.id());
+				
+				g[0]=startNode;
+				
+				server.enviarObjeto(new Mensaje(startNode));
+				
+				
+				}
+				
+			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
+				System.out.println("atras");
+				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
+				if(startNode!=null){
+				System.out.println("id del nodo: "+startNode.id());
+				
+				g[0]=startNode;
+				
+				server.enviarObjeto(new Mensaje(startNode));
+				
+				
+				}
 			}
+			
+			
+			break;
 		}
+		
 		
 		
 		
