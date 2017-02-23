@@ -340,6 +340,7 @@ public class Logica implements Observer
 				
 				}
 				//-----------------
+				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
 				estadoRonda+=1;
@@ -365,6 +366,7 @@ public class Logica implements Observer
 					
 					}
 					//-----------------
+					app.delay(300);
 					server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 					//---------------
 					estadoRonda+=1;
@@ -389,6 +391,7 @@ public class Logica implements Observer
 				
 				}
 				//-----------------
+				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
 				estadoRonda+=1;
@@ -411,6 +414,7 @@ public class Logica implements Observer
 			
 				}
 				//-----------------
+				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
 				estadoRonda+=1;

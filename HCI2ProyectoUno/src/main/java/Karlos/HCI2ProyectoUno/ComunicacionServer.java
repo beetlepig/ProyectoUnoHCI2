@@ -89,7 +89,7 @@ System.out.println("esperando cliente");
             setChanged();
             notifyObservers(o);
             clearChanged();
-			
+			 
 
 
 		} catch (IOException e) {
