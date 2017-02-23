@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Modelo.PathFinder;
+import Serializable.Balance;
+import Serializable.BalanceCompleto;
 import Serializable.Mensaje;
 import pathfinder.GraphNode;
 import processing.core.PApplet;
@@ -14,7 +16,9 @@ public class Logica implements Observer
 	ComunicacionServer server;
 	private PApplet app;        
     Mensaje mj;
-	
+    Balance bl;
+    BalanceCompleto balanceCo;
+    
 	int estado=0;
 	PathFinder rutas;
 	
@@ -25,7 +29,10 @@ public class Logica implements Observer
 	int estadoRonda=0;
 	boolean sugeridoFinish=false;
 	String sugerencia;
-	
+	boolean verdadOtroJugador;
+	boolean confie;
+	boolean elOtroJugadorConfio;
+	boolean dijeVerdad;
 	private boolean checkPopUpOtroJugador;
 	private boolean ckeckPopUp;
 	
@@ -147,6 +154,7 @@ public class Logica implements Observer
 			
 			
 		case 2:
+			
 			app.fill(0);
 			
 			app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
@@ -164,8 +172,29 @@ public class Logica implements Observer
 			app.rect(400,300, 400, 400);
 			app.fill(50);
 			app.text("aqui va el balance de confianza", 370, 230);
+			if(verdadOtroJugador){
+			    app.text("El otro jugador sugurio: "+sugerencia +". dijo : verdad", 370, 250);
+			} else if(!verdadOtroJugador) {
+				app.text("El otro jugador sugurio: "+sugerencia +". dijo : mentira", 370, 250);
+			}
 			
+			if(confie){
+			    app.text("confié en el otro jugador", 370, 300);
+			} else if(!confie) {
+				app.text("no confié en el otro jugador", 370, 300);
+			}
 			
+			if(dijeVerdad){
+				app.text("Dije la verdad", 370, 350);
+				} else {
+					app.text("no dije la verdad", 370, 350);
+				}
+				
+				if(elOtroJugadorConfio){
+					app.text("el otro jugador confio", 370, 400);
+					} else {
+						app.text("el otro jugador no confio", 370, 400);
+					}
 			
 			break;
 		}
@@ -185,7 +214,7 @@ public class Logica implements Observer
 			}
 			
 			if(mj.nodoInicial!=null && estado==2){
-				System.out.println("entro update 2");;
+			//	System.out.println("entro update 2");;
 				rutas.start= mj.nodoInicial.id();
 				rutas.usePathFinder(rutas.pathFinder);
 				
@@ -193,9 +222,22 @@ public class Logica implements Observer
 				System.out.println(rutas.getSequence());
 			}
 			
-			if(mj.indicacion!=null){
-				sugerencia=mj.indicacion;
+			
+		} else if(ob instanceof Balance){
+			bl= (Balance) ob;
+			if(bl.indicacion!=null){
+				sugerencia=bl.indicacion;
 			}
+			
+			if(bl.dijoVerdad){
+				verdadOtroJugador=true;
+			}else{
+				verdadOtroJugador=false;
+			}
+		} else if(ob instanceof BalanceCompleto){
+			balanceCo= (BalanceCompleto) ob;
+			elOtroJugadorConfio= balanceCo.confie;
+			
 		}
 		
 	}
@@ -210,10 +252,12 @@ public class Logica implements Observer
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("arriba")){
 					System.out.println("verdad para arriba");
-					server.enviarObjeto(new Mensaje("arriba",true));
+					server.enviarObjeto(new Balance("arriba",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para arriba");
-					server.enviarObjeto(new Mensaje("arriba",false));
+					server.enviarObjeto(new Balance("arriba",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -229,10 +273,12 @@ public class Logica implements Observer
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("izq")){
 					System.out.println("verdad para izquierda");
-					server.enviarObjeto(new Mensaje("izq",true));
+					server.enviarObjeto(new Balance("izq",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para izquierda");
-					server.enviarObjeto(new Mensaje("izq",false));
+					server.enviarObjeto(new Balance("izq",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -242,10 +288,12 @@ public class Logica implements Observer
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("der")){
 					System.out.println("verdad para derecha");
-					server.enviarObjeto(new Mensaje("der",true));
+					server.enviarObjeto(new Balance("der",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para derecha");
-					server.enviarObjeto(new Mensaje("der",false));
+					server.enviarObjeto(new Balance("der",false));
+					dijeVerdad=false;
 				}
 				
 				estadoRonda+=1;
@@ -256,10 +304,12 @@ public class Logica implements Observer
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("abajo")){
 					System.out.println("verdad para abajo");
-					server.enviarObjeto(new Mensaje("abajo",true));
+					server.enviarObjeto(new Balance("abajo",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para abajo");
-					server.enviarObjeto(new Mensaje("abajo",false));
+					server.enviarObjeto(new Balance("abajo",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -281,8 +331,17 @@ public class Logica implements Observer
 				
 				server.enviarObjeto(new Mensaje(startNode));
 				
+				if(sugerencia.equals("arriba")){
+					confie=true;
+				} else{
+					confie=false;
+				}
+			
 				
 				}
+				//-----------------
+				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
 				estadoRonda+=1;
 				
 			
@@ -296,8 +355,18 @@ public class Logica implements Observer
 					
 					server.enviarObjeto(new Mensaje(startNode));
 					
+					if(sugerencia.equals("izq")){
+						confie=true;
+					} else{
+						confie=false;
+					}
+					
+			
 					
 					}
+					//-----------------
+					server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+					//---------------
 					estadoRonda+=1;
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
@@ -309,8 +378,19 @@ public class Logica implements Observer
 				
 				server.enviarObjeto(new Mensaje(startNode));
 				
+				if(sugerencia.equals("der")){
+					confie=true;
+				} else{
+					confie=false;
+				}
+				
+				
+				
 				
 				}
+				//-----------------
+				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
 				estadoRonda+=1;
 			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
 				System.out.println("atras");
@@ -322,8 +402,17 @@ public class Logica implements Observer
 				
 				server.enviarObjeto(new Mensaje(startNode));
 				
-				
+				if(sugerencia.equals("abajo")){
+					confie=true;
+				} else{
+					confie=false;
 				}
+				
+			
+				}
+				//-----------------
+				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
 				estadoRonda+=1;
 			}
 			
@@ -408,11 +497,12 @@ public class Logica implements Observer
 								checkPopUpOtroJugador= mj.checkeado;
 							}
 							
-								if(ckeckPopUp && checkPopUpOtroJugador){
-									estadoRonda=0;
-									ckeckPopUp=false;
-									checkInstruccionesOtroJugador=false;
-								}
+							if(ckeckPopUp && checkPopUpOtroJugador){
+								estadoRonda=0;
+								ckeckPopUp=false;
+								checkInstruccionesOtroJugador=false;
+								sugerencia=null;
+							}
 							
 							break;
 						}

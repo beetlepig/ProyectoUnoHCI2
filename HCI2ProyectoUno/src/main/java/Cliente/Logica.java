@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import Modelo.PathFinder;
+import Serializable.Balance;
+import Serializable.BalanceCompleto;
 import Serializable.Mensaje;
 import pathfinder.GraphNode;
 import processing.core.PApplet;
@@ -17,12 +19,21 @@ public class Logica implements Observer{
   boolean ckeckPopUp;
   boolean checkPopUpOtroJugador;
   Mensaje mj;
+  Balance bl;
+  BalanceCompleto balanceCo;
   PathFinder rutas;
 	GraphNode[] g;
 	private GraphNode startNode;
 	private int estadoRonda;
 	String sugerencia;
 	private boolean checkInstruccionesOtroJugador;
+	
+	boolean verdadOtroJugador;
+	boolean dijeVerdad;
+	boolean confie;
+	boolean elOtroJugadorConfio;
+	
+	String mostrarBalance=null;
 	
 	public Logica(PApplet app) {
 		this.app=app;
@@ -147,8 +158,30 @@ public class Logica implements Observer{
 			app.rect(400,300, 400, 400);
 			app.fill(50);
 			app.text("aqui va el balance de confianza", 370, 230);
+			if(verdadOtroJugador){
+			    app.text("El otro jugador sugurio: "+sugerencia +". dijo : verdad", 370, 250);
+			} else if(!verdadOtroJugador) {
+				app.text("El otro jugador sugurio: "+sugerencia +". dijo : mentira", 370, 250);
+			}
 			
 			
+			if(confie){
+			    app.text("confié en el otro jugador", 370, 300);
+			} else if(!confie) {
+				app.text("no confié en el otro jugador", 370, 300);
+			}
+			
+			if(dijeVerdad){
+			app.text("Dije la verdad", 370, 350);
+			} else {
+				app.text("no dije la verdad", 370, 350);
+			}
+			
+			if(elOtroJugadorConfio){
+				app.text("el otro jugador confio", 370, 400);
+				} else {
+					app.text("el otro jugador no confio", 370, 400);
+				}
 			
 			
 			break;
@@ -166,11 +199,13 @@ public class Logica implements Observer{
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("arriba")){
 					System.out.println("verdad para arriba");
-					com.enviarObjeto(new Mensaje("arriba",true));
+					com.enviarObjeto(new Balance("arriba",true));
+					dijeVerdad=true;
 					
 				} else {
 					System.out.println("mentira para arriba");
-					com.enviarObjeto(new Mensaje("arriba",false));
+					com.enviarObjeto(new Balance("arriba",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -186,11 +221,13 @@ public class Logica implements Observer{
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("izq")){
 					System.out.println("verdad para izquierda");
-					com.enviarObjeto(new Mensaje("izq",true));
+					com.enviarObjeto(new Balance("izq",true));
+					dijeVerdad=true;
 					
 				} else {
 					System.out.println("mentira para izquierda");
-					com.enviarObjeto(new Mensaje("izq",false));
+					com.enviarObjeto(new Balance("izq",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -200,10 +237,12 @@ public class Logica implements Observer{
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("der")){
 					System.out.println("verdad para derecha");
-					com.enviarObjeto(new Mensaje("der",true));
+					com.enviarObjeto(new Balance("der",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para derecha");
-					com.enviarObjeto(new Mensaje("der",false));
+					com.enviarObjeto(new Balance("der",false));
+					dijeVerdad=false;
 				}
 				
 				estadoRonda+=1;
@@ -214,10 +253,12 @@ public class Logica implements Observer{
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("abajo")){
 					System.out.println("verdad para abajo");
-					com.enviarObjeto(new Mensaje("abajo",true));
+					com.enviarObjeto(new Balance("abajo",true));
+					dijeVerdad=true;
 				} else {
 					System.out.println("mentira para abajo");
-					com.enviarObjeto(new Mensaje("abajo",false));
+					com.enviarObjeto(new Balance("abajo",false));
+					dijeVerdad=false;
 				}
 				estadoRonda+=1;
 				
@@ -239,10 +280,20 @@ public class Logica implements Observer{
 				
 				com.enviarObjeto(new Mensaje(startNode));
 				
-				
+				if(sugerencia.equals("arriba")){
+					confie=true;
+				} else{
+					confie=false;
 				}
 				
-				estadoRonda+=1;
+			
+				
+				}
+				//-----------------
+				com.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
+				//estadoRonda+=1;
+				mostrarBalance="yes";
 			
 			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
 				System.out.println("izquierda");
@@ -253,10 +304,22 @@ public class Logica implements Observer{
 					g[0]=startNode;
 					
 				   com.enviarObjeto(new Mensaje(startNode));
+				   
+					if(sugerencia.equals("izq")){
+						confie=true;
+					} else{
+						confie=false;
+					}
+					
 					
 					
 					}
-					estadoRonda+=1;
+					//-----------------
+					com.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+					//---------------
+					//estadoRonda+=1;
+					mostrarBalance="yes";
+					
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
@@ -268,8 +331,23 @@ public class Logica implements Observer{
 				com.enviarObjeto(new Mensaje(startNode));
 				
 				
+				if(sugerencia.equals("der")){
+					confie=true;
+				} else{
+					confie=false;
 				}
-				estadoRonda+=1;
+				
+				
+				
+				}
+				//-----------------
+				com.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
+				//estadoRonda+=1;
+				
+				mostrarBalance="yes";
+				
+				
 			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
@@ -281,8 +359,21 @@ public class Logica implements Observer{
 				com.enviarObjeto(new Mensaje(startNode));
 				
 				
+				if(sugerencia.equals("abajo")){
+					confie=true;
+				} else{
+					confie=false;
 				}
-				estadoRonda+=1;
+				
+			
+				
+				}
+				//-----------------
+				com.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
+				//---------------
+				//estadoRonda+=1;
+				
+				mostrarBalance="yes";
 			}
 			
 			
@@ -368,6 +459,11 @@ public class Logica implements Observer{
 									estadoRonda=0;
 									ckeckPopUp=false;
 									checkInstruccionesOtroJugador=false;
+									sugerencia=null;
+								}
+								
+								if(balanceCo!=null && estadoRonda==1 && mostrarBalance!=null){
+									estadoRonda+=1;
 								}
 							
 							
@@ -405,7 +501,7 @@ public class Logica implements Observer{
 			}
 			
 			if(mj.nodoInicial!=null && estados==2){
-				System.out.println("entro update 2");;
+			//	System.out.println("entro update 2");;
 				rutas.start= mj.nodoInicial.id();
 				rutas.usePathFinder(rutas.pathFinder);
 				
@@ -413,9 +509,22 @@ public class Logica implements Observer{
 				System.out.println(rutas.getSequence());
 			}
 			
-			if(mj.indicacion!=null){
-				sugerencia=mj.indicacion;
+			
+		} else if(ob instanceof Balance){
+			bl= (Balance) ob;
+			if(bl.indicacion!=null){
+				sugerencia=bl.indicacion;
 			}
+			
+			if(bl.dijoVerdad){
+				verdadOtroJugador=true;
+			}else{
+				verdadOtroJugador=false;
+			}
+		} else if(ob instanceof BalanceCompleto){
+			balanceCo= (BalanceCompleto) ob;
+			elOtroJugadorConfio= balanceCo.confie;
+			
 		}
 		
 	}
