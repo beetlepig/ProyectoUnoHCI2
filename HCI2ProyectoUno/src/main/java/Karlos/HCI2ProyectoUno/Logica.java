@@ -36,6 +36,9 @@ public class Logica implements Observer
 	private boolean checkPopUpOtroJugador;
 	private boolean ckeckPopUp;
 	
+	
+	String mostrarBalance=null;
+	
 	public Logica(PApplet app)
 	{
 		this.app=app;
@@ -343,7 +346,8 @@ public class Logica implements Observer
 				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
-				estadoRonda+=1;
+				//estadoRonda+=1;
+				mostrarBalance="yes";
 				
 			
 			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
@@ -369,7 +373,8 @@ public class Logica implements Observer
 					app.delay(300);
 					server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 					//---------------
-					estadoRonda+=1;
+					//estadoRonda+=1;
+					mostrarBalance="yes";
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
@@ -394,7 +399,8 @@ public class Logica implements Observer
 				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
-				estadoRonda+=1;
+				//estadoRonda+=1;
+				mostrarBalance="yes";
 			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
@@ -417,7 +423,8 @@ public class Logica implements Observer
 				app.delay(300);
 				server.enviarObjeto(new BalanceCompleto(confie, dijeVerdad));
 				//---------------
-				estadoRonda+=1;
+				//estadoRonda+=1;
+				mostrarBalance="yes";
 			}
 			
 			
@@ -506,6 +513,10 @@ public class Logica implements Observer
 								ckeckPopUp=false;
 								checkInstruccionesOtroJugador=false;
 								sugerencia=null;
+							}
+							
+							if(balanceCo!=null && estadoRonda==1 && mostrarBalance!=null){
+								estadoRonda+=1;
 							}
 							
 							break;
