@@ -10,6 +10,7 @@ import Serializable.BalanceCompleto;
 import Serializable.Mensaje;
 import pathfinder.GraphNode;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Logica implements Observer
 {
@@ -20,6 +21,7 @@ public class Logica implements Observer
     BalanceCompleto balanceCo;
     
 	int estado=0;
+	int estadoSegundaPantalla=0;
 	PathFinder rutas;
 	
 	boolean checkInstrucciones=false;
@@ -37,6 +39,11 @@ public class Logica implements Observer
 	private boolean ckeckPopUp;
 	
 	
+	
+	PImage open;
+	PImage openBoton;
+	
+	
 	String mostrarBalance=null;
 	
 	public Logica(PApplet app)
@@ -47,8 +54,15 @@ public class Logica implements Observer
 		server.addObserver(this);
 
 		new Thread(comprobaciones()).start();
-	
 		
+		
+	loadImages();
+		
+	}
+	
+	private void loadImages(){
+		open= app.loadImage("../data/Insumos/Open-8.png");
+		openBoton= app.loadImage("../data/Insumos/Open-boton-comenzar-8.png");
 	}
 	
 	
@@ -89,27 +103,66 @@ public class Logica implements Observer
 	
 	
 	private void primerPantalla(){
-		if(server.cliente == null){
-			app.fill(0);
-			app.textSize(20);
-			app.text("Esperando jugador", app.width-100, app.height-20);
+	
 			
-		    app.rect(app.width/2, app.height/2, 200, 100);
+			
+			if(server.cliente == null){
+				app.fill(0);
+				app.textSize(20);
+				app.text("Esperando jugador", app.width-100, app.height-20);
+			    app.rect(app.width/2, app.height/2, 200, 100);
+			}else {
+				estado=1;
+			}
+			
+			
 		
-		}else {
-			estado=1;
-		}
+		
+		
 	}
 	
 	private void segundaPantalla(){
+		
+		switch (estadoSegundaPantalla) {
+		case 0:
+			
+			app.image(open, 0F, 0F);
+			if((app.mouseX>520 && app.mouseX<760) && (app.mouseY>570 && app.mouseY<630)){
+			app.image(openBoton, 0, 0);
+			if(app.mousePressed){
+				estadoSegundaPantalla=1;
+			}
+			}
+			
+			break;
 
-		app.text("pantallaDos", 100, 100);
-		if(checkInstrucciones){
-			app.fill(0,200,0);
-		} else{
-			app.fill(0);
+		case 1:
+			
+			
+			break;
+			
+		case 2:
+			
+			
+			break;
+			
+			
+		case 3:
+			
+			app.text("pantallaDos", 100, 100);
+			if(checkInstrucciones){
+				app.fill(0,200,0);
+			} else{
+				app.fill(0);
+			}
+			app.rect(app.width-60, app.height-60, 30, 30);
+			
+			
+			
+			break;
 		}
-		app.rect(app.width-60, app.height-60, 30, 30);
+
+		
 	}
 	
 	
