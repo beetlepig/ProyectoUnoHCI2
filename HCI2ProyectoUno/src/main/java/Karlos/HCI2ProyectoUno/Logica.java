@@ -38,6 +38,7 @@ public class Logica implements Observer
 	private boolean checkPopUpOtroJugador;
 	private boolean ckeckPopUp;
 	
+	private short acumuladoDesiciones;
 	
 	
 	PImage open;
@@ -317,6 +318,20 @@ public class Logica implements Observer
 					} else {
 						app.text("el otro jugador no confio", 370, 400);
 					}
+				
+				app.text("el acumulado es: "+acumuladoDesiciones, 250,200);
+				if(acumuladoDesiciones==0){
+				app.text("el balance es: 0%", 200, 200);
+				} else if(acumuladoDesiciones==1){
+					app.text("el balance es: 25%", 250, 150);
+				}
+				else if(acumuladoDesiciones==2){
+					app.text("el balance es: 50%", 250, 150);
+				} else if(acumuladoDesiciones==3){
+					app.text("el balance es: 75%", 250, 150);
+				} else if(acumuladoDesiciones==3){
+					app.text("el balance es: 100%", 250, 150);
+				}
 			
 			break;
 		}
@@ -494,6 +509,8 @@ public class Logica implements Observer
 					//---------------
 					//estadoRonda+=1;
 					mostrarBalance="yes";
+					
+					
 			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
@@ -544,7 +561,10 @@ public class Logica implements Observer
 				//---------------
 				//estadoRonda+=1;
 				mostrarBalance="yes";
+				
 			}
+			
+			
 			
 			
 			break;
@@ -628,18 +648,39 @@ public class Logica implements Observer
 							}
 							
 							if(ckeckPopUp && checkPopUpOtroJugador){
-								estadoRonda=0;
-								ckeckPopUp=false;
 								checkInstruccionesOtroJugador=false;
 								sugerencia=null;
 								mostrarBalance=null;
 								mj=null;
 								bl=null;
 								balanceCo=null;
+								ckeckPopUp=false;
+								estadoRonda=0;
+								acumuladoDesiciones=0;
 							}
 							
 							if(balanceCo!=null && estadoRonda==1 && mostrarBalance!=null){
+								if(confie){
+									
+									acumuladoDesiciones+=1;
+								}
+								
+								if(elOtroJugadorConfio){
+								
+									acumuladoDesiciones+=1;
+								}
+								
+								if(dijeVerdad){
+								
+									acumuladoDesiciones+=1;
+								}
+								
+								if(verdadOtroJugador){
+									
+									acumuladoDesiciones+=1;
+								}
 								estadoRonda+=1;
+								
 							}
 							
 							break;

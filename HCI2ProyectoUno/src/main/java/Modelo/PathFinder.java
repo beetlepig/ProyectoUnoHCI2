@@ -83,7 +83,7 @@ public class PathFinder {
 		app.pushMatrix();
 		app.translate(offX, offY);
 		if (graphImage != null)
-			//app.image(graphImage, +6, -6);
+			app.image(graphImage, +6, -6);
 		// println(mouseX+" "+mouseY);
 
 		/*
@@ -101,7 +101,7 @@ public class PathFinder {
 				app.line(startNode.xf(), startNode.yf(), app.mouseX - offX, app.mouseY - offY);
 		}
 
-	//	drawNodes(); // Esta linea de codigo dibuja los nodos (los puntos del fondo), puede ser comentada para no verlos
+		drawNodes(); // Esta linea de codigo dibuja los nodos (los puntos del fondo), puede ser comentada para no verlos
 		app.popMatrix();
 	}
 	
