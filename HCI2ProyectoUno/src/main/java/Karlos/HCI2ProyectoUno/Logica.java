@@ -52,6 +52,7 @@ public class Logica implements Observer
     PImage instruccionesBoton;
     PImage interfaz;
     PImage loboEscogido;
+    PImage balanceConfianza[];
 	
 	
 	String mostrarBalance=null;
@@ -83,6 +84,12 @@ public class Logica implements Observer
 		instrucciones= app.loadImage("../data/Insumos/Instrucciones-8.png");
 		instruccionesBoton= app.loadImage("../data/Insumos/Instrucciones - Boton-8.png");
 		interfaz= app.loadImage("../data/Insumos/Interfaz 1.png");
+		balanceConfianza= new PImage[5];
+		balanceConfianza[0]= app.loadImage("../data/Insumos/Balance -8.png");
+		balanceConfianza[1]= app.loadImage("../data/Insumos/Balance 25-8.png");
+		balanceConfianza[2]= app.loadImage("../data/Insumos/Balance 50-8.png");
+		balanceConfianza[3]= app.loadImage("../data/Insumos/Balance 75-8.png");
+		balanceConfianza[4]= app.loadImage("../data/Insumos/Blance 100-8.png");
 	}
 	
 	
@@ -292,7 +299,7 @@ public class Logica implements Observer
 			posicionesJugador(g);
 			}
 			app.fill(150);
-			app.rect(400,300, 400, 400);
+		//	app.rect(400,300, 400, 400);
 			app.fill(50);
 			app.text("aqui va el balance de confianza", 370, 230);
 			if(verdadOtroJugador){
@@ -321,16 +328,33 @@ public class Logica implements Observer
 				
 				app.text("el acumulado es: "+acumuladoDesiciones, 250,200);
 				if(acumuladoDesiciones==0){
+					app.image(balanceConfianza[0], 0, 0);
 				app.text("el balance es: 0%", 200, 200);
+				
 				} else if(acumuladoDesiciones==1){
+					app.image(balanceConfianza[1], 0, 0);
 					app.text("el balance es: 25%", 250, 150);
+					
 				}
 				else if(acumuladoDesiciones==2){
+					app.image(balanceConfianza[2], 0, 0);
 					app.text("el balance es: 50%", 250, 150);
+					
 				} else if(acumuladoDesiciones==3){
+					app.image(balanceConfianza[3], 0, 0);
 					app.text("el balance es: 75%", 250, 150);
-				} else if(acumuladoDesiciones==3){
+					
+				} else if(acumuladoDesiciones==4){
+					app.image(balanceConfianza[4], 0, 0);
 					app.text("el balance es: 100%", 250, 150);
+					
+				}
+				
+				if(ckeckPopUp){
+					app.pushStyle();
+					app.fill(70);
+					app.text("Esperando al otro jugador", 640, 550);
+					app.popStyle();
 				}
 			
 			break;
@@ -573,7 +597,7 @@ public class Logica implements Observer
 			
 		case 2:
 			
-			if ((mouseX>200 && mouseX<600) && (mouseY>100 && mouseY<500)){
+			if ((mouseX>910 && mouseX<955) && (mouseY>170 && mouseY<215)){
 				System.out.println("cerrar");
 				ckeckPopUp=true;
 				server.enviarObjeto(new Mensaje(true));
