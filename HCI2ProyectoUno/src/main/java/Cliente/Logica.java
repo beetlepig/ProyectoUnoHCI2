@@ -10,11 +10,15 @@ import Serializable.BalanceCompleto;
 import Serializable.Mensaje;
 import pathfinder.GraphNode;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Logica implements Observer{
   ComunicacionCliente com;
   PApplet app;
+  
   int estados=0;
+  int estadoSegundaPantalla=0;
+  
   boolean checkInstrucciones=false;
   boolean ckeckPopUp;
   boolean checkPopUpOtroJugador;
@@ -34,12 +38,40 @@ public class Logica implements Observer{
 	boolean elOtroJugadorConfio;
 	
 	String mostrarBalance=null;
+
+	
+	PImage open;
+	PImage openBoton;
+	PImage intro;
+	PImage introBoton;
+	PImage elegir[];
+	int loboElegido;
+	PImage elegirBoton;
+    PImage instrucciones;
+    PImage instruccionesBoton;
 	
 	public Logica(PApplet app) {
 		this.app=app;
 		com= new ComunicacionCliente(3010);
 		com.addObserver(this);
 		new Thread(comprobaciones()).start();
+		
+		loadImages();
+	}
+	
+	
+	private void loadImages(){
+		open= app.loadImage("../data/Insumos/Open-8.png");
+		openBoton= app.loadImage("../data/Insumos/Open-boton-comenzar-8.png");
+		intro= app.loadImage("../data/Insumos/Intro-8.png");
+		introBoton= app.loadImage("../data/Insumos/Intro - Boton-8.png");
+		elegir= new PImage[3];
+		elegir[0]=app.loadImage("../data/Insumos/Elegir-8.png");
+		elegir[1]=app.loadImage("../data/Insumos/Elegir izq-8.png");
+		elegir[2]=app.loadImage("../data/Insumos/Elegir der-8.png");
+		elegirBoton=app.loadImage("../data/Insumos/Elegir - boton continuar-8.png");
+		instrucciones= app.loadImage("../data/Insumos/Instrucciones-8.png");
+		instruccionesBoton= app.loadImage("../data/Insumos/Instrucciones - Boton-8.png");
 	}
 	
 	
@@ -87,14 +119,82 @@ public class Logica implements Observer{
 	
 	
 	private void segundaPantalla(){
+		
+		switch (estadoSegundaPantalla) {
+		case 0:
+			
+			app.image(open, 0F, 0F);
+			if((app.mouseX>520 && app.mouseX<760) && (app.mouseY>570 && app.mouseY<630)){
+			app.image(openBoton, 0, 0);
+			if(app.mousePressed){
+				estadoSegundaPantalla=1;
+				app.delay(400);
+			}
+			}
+			
+			break;
+			
+			
+			
+			
+		case 1:
+			app.image(intro, 0, 0);
+			if((app.mouseX>520 && app.mouseX<750) && (app.mouseY>610 && app.mouseY<670)){
+				app.image(introBoton, 0, 0);
+				if(app.mousePressed){
+					estadoSegundaPantalla=2;
+					app.delay(400);
+				}
+				}
+			
+			
+			
+			
+			break;
 
-		app.text("pantallaDos", 100, 100);
-		if(checkInstrucciones){
-			app.fill(0,200,0);
-		} else{
-			app.fill(0);
+		case 2:
+			
+				app.image(elegir[loboElegido], 0, 0);
+			
+			
+			
+			
+			if((app.mouseX>700 && app.mouseX<940) && (app.mouseY>210 && app.mouseY<535) && app.mousePressed){
+				loboElegido=2;
+				
+			}
+			
+			if((app.mouseX>340 && app.mouseX<585) && (app.mouseY>210 && app.mouseY<535) && app.mousePressed){
+				loboElegido=1;
+			}
+			
+			
+			if((app.mouseX>520 && app.mouseX<760) && (app.mouseY>610 && app.mouseY<670)){
+				app.image(elegirBoton, 0, 0);
+				if(app.mousePressed && loboElegido!=0){
+					estadoSegundaPantalla=3;
+					app.delay(500);
+				}
+				}
+			break;
+			
+		case 3:
+			app.image(instrucciones, 0,0);
+		
+			if(checkInstrucciones){
+				app.image(instruccionesBoton, 0, 0);
+				app.pushStyle();
+				app.fill(255);
+				app.text("Esperando al otro jugador", 640, 690);
+				app.popStyle();
+			} 
+			
+			
+			break;
+
 		}
-		app.rect(app.width-60, app.height-60, 30, 30);
+
+		
 	}
 	
 	private void terceraPantalla () {
