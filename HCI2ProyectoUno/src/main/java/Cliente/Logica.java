@@ -218,7 +218,7 @@ public class Logica implements Observer{
 		case 1:
 			if(sugerencia==null){
 			app.text("esperando sugerencia del otro jugador", 300, 300);
-			} else {
+			} else if (mostrarBalance==null){
 				app.fill(0);
 				
 				app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
@@ -232,6 +232,8 @@ public class Logica implements Observer{
 				if(g!=null){
 				posicionesJugador(g);
 				}
+			} else if(mostrarBalance!=null){
+				app.text("esperando que el otro jugador se mueva",200, 100);
 			}
 			
 			
@@ -564,6 +566,11 @@ public class Logica implements Observer{
 									ckeckPopUp=false;
 									checkInstruccionesOtroJugador=false;
 									sugerencia=null;
+									mostrarBalance=null;
+									mj=null;
+									bl=null;
+									balanceCo=null;
+									
 								}
 								
 								if(balanceCo!=null && estadoRonda==1 && mostrarBalance!=null){

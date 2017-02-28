@@ -27,8 +27,8 @@ public class PathFinder {
 	int algorithm;
 
 	int overAlgorithm, overOption, overGraph;
-	public int offX = 150;
-	public int offY = 400;
+	public int offX = 90;
+	public int offY = 340;
 
 	boolean[] showOption = new boolean[3];
 
@@ -83,7 +83,7 @@ public class PathFinder {
 		app.pushMatrix();
 		app.translate(offX, offY);
 		if (graphImage != null)
-			app.image(graphImage, +6, -6);
+			//app.image(graphImage, +6, -6);
 		// println(mouseX+" "+mouseY);
 
 		/*
