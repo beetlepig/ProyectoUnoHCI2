@@ -53,7 +53,7 @@ public class App extends PApplet
 			log.com.enviarObjeto(mj);
 		}
 		if(log.estados==2){
-		//	log.rutas.mousePressed(mouseX, mouseY);
+			log.rutas.mousePressed(mouseX, mouseY);
 			log.movimiento(mouseX, mouseY);
 			}
 	}

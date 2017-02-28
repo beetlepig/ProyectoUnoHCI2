@@ -27,8 +27,8 @@ public class PathFinder {
 	int algorithm;
 
 	int overAlgorithm, overOption, overGraph;
-	public int offX = 90;
-	public int offY = 340;
+	public int offX = 95;
+	public int offY = 370;
 
 	boolean[] showOption = new boolean[3];
 

@@ -49,6 +49,8 @@ public class Logica implements Observer{
 	PImage elegirBoton;
     PImage instrucciones;
     PImage instruccionesBoton;
+    PImage interfaz;
+    
 	
 	public Logica(PApplet app) {
 		this.app=app;
@@ -72,6 +74,7 @@ public class Logica implements Observer{
 		elegirBoton=app.loadImage("../data/Insumos/Elegir - boton continuar-8.png");
 		instrucciones= app.loadImage("../data/Insumos/Instrucciones-8.png");
 		instruccionesBoton= app.loadImage("../data/Insumos/Instrucciones - Boton-8.png");
+		interfaz= app.loadImage("../data/Insumos/Interfaz 2.png");
 	}
 	
 	
@@ -198,6 +201,7 @@ public class Logica implements Observer{
 	}
 	
 	private void terceraPantalla () {
+		app.image(interfaz, 0, 0);
 		switch (estadoRonda) {
 		case 0:
 			app.fill(0);
@@ -546,7 +550,7 @@ public class Logica implements Observer{
 							}
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
-									rutas= new PathFinder(app,292,195);
+									rutas= new PathFinder(app,292,176);
 									GraphNode[] o= rutas.rNodes;
 									   com.enviarObjeto(new Mensaje(o));
 								estados=2;

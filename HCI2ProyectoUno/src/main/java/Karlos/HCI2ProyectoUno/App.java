@@ -39,7 +39,7 @@ public class App extends PApplet
     
     public void mousePressed()
     {
-    	println(mouseX, mouseY);
+    //	println(mouseX, mouseY);
 		if( (mouseX>520 && mouseX<750) &&  (mouseY>610 && mouseY<670) && log.estado==1 && log.estadoSegundaPantalla==3){
 			
 			if(!log.checkInstrucciones){

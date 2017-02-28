@@ -49,7 +49,7 @@ public class Logica implements Observer
 	PImage elegirBoton;
     PImage instrucciones;
     PImage instruccionesBoton;
-    PImage fondoSegunPersonaje;
+    PImage interfaz;
 	
 	
 	String mostrarBalance=null;
@@ -80,6 +80,7 @@ public class Logica implements Observer
 		elegirBoton=app.loadImage("../data/Insumos/Elegir - boton continuar-8.png");
 		instrucciones= app.loadImage("../data/Insumos/Instrucciones-8.png");
 		instruccionesBoton= app.loadImage("../data/Insumos/Instrucciones - Boton-8.png");
+		interfaz= app.loadImage("../data/Insumos/Interfaz 1.png");
 	}
 	
 	
@@ -194,7 +195,7 @@ public class Logica implements Observer
 				if(app.mousePressed && loboElegido!=0){
 					estadoSegundaPantalla=3;
 					//if(loboElegido==1){
-					fondoSegunPersonaje= app.loadImage("../data/Insumos/Jugador 2-8.png");
+					
 				//	}
 					app.delay(500);
 				}
@@ -222,7 +223,7 @@ public class Logica implements Observer
 	
 	
 	private void terceraPantalla(){
-		app.image(fondoSegunPersonaje, 0, 0);
+		app.image(interfaz, 0, 0);
 		switch (estadoRonda) {
 		case 0:
 			app.fill(0);
@@ -603,7 +604,7 @@ public class Logica implements Observer
 						case 1:
 							
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
-									rutas= new PathFinder(app,105,157);
+									rutas= new PathFinder(app,105,156);
 									GraphNode[] o= rutas.rNodes;
 								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
