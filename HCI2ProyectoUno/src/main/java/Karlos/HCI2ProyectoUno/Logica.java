@@ -50,6 +50,7 @@ public class Logica implements Observer
     PImage instrucciones;
     PImage instruccionesBoton;
     PImage interfaz;
+    PImage loboEscogido;
 	
 	
 	String mostrarBalance=null;
@@ -194,9 +195,11 @@ public class Logica implements Observer
 				app.image(elegirBoton, 0, 0);
 				if(app.mousePressed && loboElegido!=0){
 					estadoSegundaPantalla=3;
-					//if(loboElegido==1){
-					
-				//	}
+					if(loboElegido==1){
+					loboEscogido= app.loadImage("../data/Insumos/LoboBlanco.png");
+					} else if(loboElegido==2){
+						loboEscogido= app.loadImage("../data/Insumos/LoboGris.png");
+					}
 					app.delay(500);
 				}
 				}
@@ -224,9 +227,10 @@ public class Logica implements Observer
 	
 	private void terceraPantalla(){
 		app.image(interfaz, 0, 0);
+		app.image(loboEscogido, 150, 70);
 		switch (estadoRonda) {
 		case 0:
-			app.fill(0);
+			app.fill(255);
 			
 			app.text("Sugiere una direccion para el otro jugador", 200, 100);
 			rutas.pintar();
@@ -245,7 +249,7 @@ public class Logica implements Observer
 			if(sugerencia==null){
 				app.text("esperando sugerencia del otro jugador", 300, 300);
 				} else if (mostrarBalance==null) {
-					app.fill(0);
+					app.fill(255);
 					
 					app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
 					rutas.pintar();
@@ -260,6 +264,9 @@ public class Logica implements Observer
 					}
 				} else if(mostrarBalance!=null){
 					app.text("esperando que el otro jugador se mueva",200, 100);
+					if(g!=null){
+						posicionesJugador(g);
+						}
 				}
 				
 			
@@ -270,7 +277,7 @@ public class Logica implements Observer
 			
 		case 2:
 			
-			app.fill(0);
+			app.fill(255);
 			
 			app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
 			rutas.pintar();
