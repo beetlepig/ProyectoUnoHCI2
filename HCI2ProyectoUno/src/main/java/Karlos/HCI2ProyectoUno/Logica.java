@@ -56,7 +56,6 @@ public class Logica implements Observer
     PImage loboEscogido;
     PImage balanceConfianza[];
     PImage esperarJugadorIMG;
-    PImage sugerirDireccion;
     PImage energia[];
 	
 	

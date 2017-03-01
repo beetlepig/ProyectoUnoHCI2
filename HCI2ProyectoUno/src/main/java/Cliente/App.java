@@ -23,6 +23,7 @@ public class App extends PApplet
 		ellipseMode(CENTER);
 		cursor(CROSS);
 		smooth();
+	textSize(20);
 	}
 	
 	public void draw(){
