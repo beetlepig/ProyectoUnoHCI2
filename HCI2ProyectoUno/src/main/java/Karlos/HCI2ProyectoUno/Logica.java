@@ -745,29 +745,37 @@ public class Logica implements Observer
 								bl=null;
 								balanceCo=null;
 								ckeckPopUp=false;
-								estadoRonda=0;
+								checkPopUpOtroJugador=false;
 								acumuladoDesiciones=0;
+								if(energiaInicial>0){
+								energiaInicial-=10;
+								}
+								estadoRonda=0;
 							}
 							
 							if(balanceCo!=null && estadoRonda==1 && mostrarBalance!=null){
 								if(confie){
 									
 									acumuladoDesiciones+=1;
+									
 								}
 								
 								if(elOtroJugadorConfio){
 								
 									acumuladoDesiciones+=1;
+									
 								}
 								
 								if(dijeVerdad){
 								
 									acumuladoDesiciones+=1;
+									
 								}
 								
 								if(verdadOtroJugador){
 									
 									acumuladoDesiciones+=1;
+									
 								}
 								estadoRonda+=1;
 								

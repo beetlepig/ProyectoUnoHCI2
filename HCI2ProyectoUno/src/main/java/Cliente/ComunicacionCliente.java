@@ -73,7 +73,7 @@ public class ComunicacionCliente extends Observable{
 				while (true) {
 					recibir();
 					try {
-						Thread.sleep(10);
+						Thread.sleep(20);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
