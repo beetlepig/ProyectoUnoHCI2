@@ -40,6 +40,8 @@ public class Logica implements Observer
 	
 	private short acumuladoDesiciones;
 	
+	private short energiaInicial=130;
+	
 	
 	PImage open;
 	PImage openBoton;
@@ -54,6 +56,8 @@ public class Logica implements Observer
     PImage loboEscogido;
     PImage balanceConfianza[];
     PImage esperarJugadorIMG;
+    PImage sugerirDireccion;
+    PImage energia[];
 	
 	
 	String mostrarBalance=null;
@@ -92,6 +96,15 @@ public class Logica implements Observer
 		balanceConfianza[3]= app.loadImage("../data/Insumos/Balance 75-8.png");
 		balanceConfianza[4]= app.loadImage("../data/Insumos/Blance 100-8.png");
 		esperarJugadorIMG= app.loadImage("../data/Insumos/Esperando-8.png");
+		energia= new PImage[20];
+		
+		
+		for (int i = 0; i < 19; i++) {
+			energia[i]=app.loadImage("../data/Insumos/Energia "+(i+1)+".png");
+		}
+		
+		
+		
 	}
 	
 	
@@ -238,6 +251,49 @@ public class Logica implements Observer
 	private void terceraPantalla(){
 		app.image(interfaz, 0, 0);
 		app.image(loboEscogido, 150, 70);
+		//pintar energia
+		if(energiaInicial==200){
+			 app.image(energia[19], 410, 50);
+		}else if(energiaInicial==190){
+			 app.image(energia[18], 410, 50);
+		}else if(energiaInicial==180){
+			 app.image(energia[17], 410, 50);
+		}else if(energiaInicial==170){
+			 app.image(energia[16], 410, 50);
+		}else if(energiaInicial==160){
+			 app.image(energia[15], 410, 50);
+		}else if(energiaInicial==150){
+			 app.image(energia[14], 410, 50);
+		}else if(energiaInicial==140){
+			 app.image(energia[13], 410, 50);
+		}else if(energiaInicial==130){
+		    app.image(energia[12], 410, 50);
+		}else if(energiaInicial==120){
+			app.image(energia[11], 410, 50);
+		}else if(energiaInicial==110){
+			app.image(energia[10], 410, 50);
+		}else if(energiaInicial==100){
+			app.image(energia[9], 410, 50);
+		}else if(energiaInicial==90){
+			app.image(energia[8], 410, 50);
+		}else if(energiaInicial==80){
+			app.image(energia[7], 410, 50);
+		}else if(energiaInicial==70){
+			app.image(energia[6], 410, 50);
+		}else if(energiaInicial==60){
+			app.image(energia[5], 410, 50);
+		}else if(energiaInicial==50){
+			app.image(energia[4], 410, 50);
+		}else if(energiaInicial==40){
+			app.image(energia[3], 410, 50);
+		}else if(energiaInicial==30){
+			app.image(energia[2], 410, 50);
+		}else if(energiaInicial==20){
+			app.image(energia[1], 410, 50);
+		}else if(energiaInicial==10){
+			app.image(energia[0], 410, 50);
+		}
+		
 		switch (estadoRonda) {
 		case 0:
 			app.fill(255);
