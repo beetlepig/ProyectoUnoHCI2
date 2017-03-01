@@ -53,6 +53,7 @@ public class Logica implements Observer
     PImage interfaz;
     PImage loboEscogido;
     PImage balanceConfianza[];
+    PImage esperarJugadorIMG;
 	
 	
 	String mostrarBalance=null;
@@ -90,6 +91,7 @@ public class Logica implements Observer
 		balanceConfianza[2]= app.loadImage("../data/Insumos/Balance 50-8.png");
 		balanceConfianza[3]= app.loadImage("../data/Insumos/Balance 75-8.png");
 		balanceConfianza[4]= app.loadImage("../data/Insumos/Blance 100-8.png");
+		esperarJugadorIMG= app.loadImage("../data/Insumos/Esperando-8.png");
 	}
 	
 	
@@ -255,29 +257,37 @@ public class Logica implements Observer
 
 		case 1:
 			if(sugerencia==null){
-				app.text("esperando sugerencia del otro jugador", 300, 300);
+				
+				app.image(esperarJugadorIMG, 0, 0);
+				app.text("Esperando sugerencia del otro jugador", 710, 300);
+				
 				} else if (mostrarBalance==null) {
 					app.fill(255);
 					
 					app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
-					rutas.pintar();
+					
 					
 					app.text("Izquierda", 600, 400);
 					app.text("Derecha", 1000, 400);
 					app.text("Derecho", 800, 200);
 					app.text("Atras", 800, 600);
 				//	g= rutas.rNodes;
-					if(g!=null){
-					posicionesJugador(g);
-					}
+				//	if(g!=null){
+				//	posicionesJugador(g);
+				//	}
 				} else if(mostrarBalance!=null){
-					app.text("esperando que el otro jugador se mueva",200, 100);
-					if(g!=null){
-						posicionesJugador(g);
-						}
+					
+					app.image(esperarJugadorIMG, 0, 0);
+					app.text("Esperando que el otro jugador se mueva",710, 300);
+				//	if(g!=null){
+				//		posicionesJugador(g);
+				//		}
 				}
 				
-			
+			if(g!=null){
+				posicionesJugador(g);
+				}
+			rutas.pintar();
 			
 			
 			break;
