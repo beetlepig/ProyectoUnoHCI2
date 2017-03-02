@@ -42,6 +42,8 @@ public class Logica implements Observer
 	
 	private short energiaInicial=130;
 	
+	private short energiaCiervo=20;
+	
 	
 	PImage open;
 	PImage openBoton;
@@ -253,6 +255,11 @@ public class Logica implements Observer
 	private void terceraPantalla(){
 		app.image(interfaz, 0, 0);
 		app.image(loboEscogido, 150, 70);
+		app.pushStyle();
+		app.fill(0);
+		app.textSize(30);
+		app.text(energiaCiervo, 275, 340);
+		app.popStyle();
 		//pintar energia
 		if(energiaInicial==200){
 			 app.image(energia[19], 410, 50);
@@ -688,8 +695,8 @@ public class Logica implements Observer
 				app.pushStyle();
 				// Route start node
 				app.strokeWeight(2.0f);
-				app.stroke(0, 0, 160);
-				app.fill(0, 0, 255);
+				app.stroke(255, 255, 255);
+				app.fill(255,255, 255);
 				app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
 				// Route end node
 				app.stroke(0, 250, 0);

@@ -265,8 +265,8 @@ public class PathFinder {
 			}
 			// Route start node
 			app.strokeWeight(2.0f);
-			app.stroke(0, 0, 160);
-			app.fill(0, 0, 255);
+			app.stroke(200, 0, 0);
+			app.fill(200, 0, 0);
 			app.ellipse(r[0].xf(), r[0].yf(), nodeSize, nodeSize);
 			// Route end node
 			app.stroke(0, 250, 0);
