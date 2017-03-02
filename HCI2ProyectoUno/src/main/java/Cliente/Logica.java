@@ -54,6 +54,8 @@ public class Logica implements Observer{
     PImage balanceConfianza[];
     PImage esperarJugadorIMG;
     PImage energia[];
+    PImage sugerirImg;
+    PImage escogerImg;
     
     short acumuladoDesiciones;
     
@@ -92,6 +94,9 @@ public class Logica implements Observer{
 		balanceConfianza[4]= app.loadImage("../data/Insumos/Blance 100-8.png");
 		esperarJugadorIMG= app.loadImage("../data/Insumos/Esperando-8.png");
 		energia= new PImage[20];
+		sugerirImg=  app.loadImage("../data/Insumos/Jugador 1 - sugiere-8.png");
+		escogerImg=  app.loadImage("../data/Insumos/Jugador 1 - ir-8.png");
+		
 		for (int i = 0; i < 19; i++) {
 			energia[i]=app.loadImage("../data/Insumos/Energia "+(i+1)+".png");
 		}
@@ -274,14 +279,14 @@ public class Logica implements Observer{
 		switch (estadoRonda) {
 		case 0:
 			app.fill(255);
-			
-			app.text("Sugiere una direccion para el otro jugador", 200, 100);
+			app.image(sugerirImg, 0, 0);
+		
 			rutas.pintar();
 			
-			app.text("Izquierda", 600, 400);
-			app.text("Derecha", 1000, 400);
-			app.text("Derecho", 800, 200);
-			app.text("Atras", 800, 600);
+		//	app.text("Izquierda", 600, 400);
+		//	app.text("Derecha", 1000, 400);
+		//	app.text("Derecho", 800, 200);
+		//	app.text("Atras", 800, 600);
 		//	g= rutas.rNodes;
 			if(g!=null){
 			posicionesJugador(g);
@@ -298,14 +303,14 @@ public class Logica implements Observer{
 		//		}
 			} else if (mostrarBalance==null){
 				app.fill(255);
+				app.image(escogerImg, 0, 0);
+				app.text(sugerencia, 940, 614);
 				
-				app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
 				
-				
-				app.text("Izquierda", 600, 400);
-				app.text("Derecha", 1000, 400);
-				app.text("Derecho", 800, 200);
-				app.text("Atras", 800, 600);
+			//	app.text("Izquierda", 600, 400);
+			//	app.text("Derecha", 1000, 400);
+			//	app.text("Derecho", 800, 200);
+			//	app.text("Atras", 800, 600);
 			//	g= rutas.rNodes;
 			//	if(g!=null){
 		//		posicionesJugador(g);
@@ -329,13 +334,13 @@ public class Logica implements Observer{
              
 			app.fill(255);
 			
-			app.text("el otro jugador sugurio:"+ sugerencia, 200, 100);
+			app.text(sugerencia, 895, 607);
 			rutas.pintar();
 			
-			app.text("Izquierda", 600, 400);
-			app.text("Derecha", 1000, 400);
-			app.text("Derecho", 800, 200);
-			app.text("Atras", 800, 600);
+		//	app.text("Izquierda", 600, 400);
+		//	app.text("Derecha", 1000, 400);
+		//	app.text("Derecho", 800, 200);
+		//	app.text("Atras", 800, 600);
 		//	g= rutas.rNodes;
 			if(g!=null){
 			posicionesJugador(g);
@@ -406,7 +411,7 @@ public class Logica implements Observer{
 		case 0:
 			
 			app.println(mouseX,mouseY);
-			if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
+			if( (mouseX>750 && mouseX<855) && (mouseY>340 && mouseY<435)){
 				System.out.println("derecho");
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("arriba")){
@@ -428,7 +433,7 @@ public class Logica implements Observer{
 				
 				
 			
-			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
+			} else if((mouseX>665 && mouseX<760) && (mouseY>425 && mouseY<530)){
 				System.out.println("izquierda");
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("izq")){
@@ -444,7 +449,7 @@ public class Logica implements Observer{
 				estadoRonda+=1;
 				
 				
-			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
+			} else if((mouseX>855 && mouseX<955) && (mouseY>426 && mouseY<530)){
 				System.out.println("derecha");
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("der")){
@@ -460,7 +465,7 @@ public class Logica implements Observer{
 				estadoRonda+=1;
 				
 				
-			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
+			} else if ((mouseX>755 && mouseX<870) && (mouseY>520 && mouseY<620)){
 				System.out.println("atras");
 				ArrayList<String> secuencia= rutas.getSequence();
 				if(secuencia.get(0).equals("abajo")){
@@ -480,7 +485,7 @@ public class Logica implements Observer{
 
 		case 1:
 			app.println(mouseX,mouseY);
-			if( (mouseX>751 && mouseX<850) && (mouseY>175 && mouseY<210)){
+			if( (mouseX>752 && mouseX<865) && (mouseY>246 && mouseY<335)){
 				System.out.println("derecho");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY-20 - rutas.offY, 0,10.0f); 
 				int imprimir= (int) (g[0].yf()+rutas.offY-5) ;
@@ -508,7 +513,7 @@ public class Logica implements Observer{
 				//estadoRonda+=1;
 				mostrarBalance="yes";
 			
-			} else if((mouseX>550 && mouseX<650) && (mouseY>380 && mouseY<415)){
+			} else if((mouseX>665 && mouseX<760) && (mouseY>333 && mouseY<430)){
 				System.out.println("izquierda");
 					startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX-17 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 16.0f); 
 					if(startNode!=null){
@@ -534,7 +539,7 @@ public class Logica implements Observer{
 					//estadoRonda+=1;
 					mostrarBalance="yes";
 					
-			} else if((mouseX>950 && mouseX<1050) && (mouseY>380 && mouseY<415)){
+			} else if((mouseX>865 && mouseX<960) && (mouseY>380 && mouseY<415)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
 				if(startNode!=null){
@@ -563,7 +568,7 @@ public class Logica implements Observer{
 				mostrarBalance="yes";
 				
 				
-			} else if ((mouseX>766 && mouseX<830) && (mouseY>570 && mouseY<608)){
+			} else if ((mouseX>755 && mouseX<860) && (mouseY>425 && mouseY<520)){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
 				if(startNode!=null){
