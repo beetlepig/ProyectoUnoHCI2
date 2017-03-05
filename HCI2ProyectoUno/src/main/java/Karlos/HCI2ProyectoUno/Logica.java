@@ -590,7 +590,7 @@ public class Logica implements Observer
 
 		case 1:
 			app.println(mouseX,mouseY);
-			if( (mouseX>752 && mouseX<865) && (mouseY>246 && mouseY<335)){
+			if( (mouseX>752 && mouseX<865) && (mouseY>246 && mouseY<335) && mostrarBalance==null){
 				System.out.println("derecho");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY-20 - rutas.offY, 0,9.0f); 
 				int imprimir= (int) (g[0].yf()+rutas.offY-5) ;
@@ -618,7 +618,7 @@ public class Logica implements Observer
 				mostrarBalance="yes";
 				
 			
-			} else if((mouseX>665 && mouseX<760) && (mouseY>333 && mouseY<430)){
+			} else if((mouseX>665 && mouseX<760) && (mouseY>333 && mouseY<430) && mostrarBalance==null){
 				System.out.println("izquierda");
 					startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX-17 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 15.0f); 
 					if(startNode!=null){
@@ -645,7 +645,7 @@ public class Logica implements Observer
 					mostrarBalance="yes";
 					
 					
-			} else if((mouseX>860 && mouseX<960) && (mouseY>330 && mouseY<437)){
+			} else if((mouseX>860 && mouseX<960) && (mouseY>330 && mouseY<437) && mostrarBalance==null){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 9.0f); 
 				if(startNode!=null){
@@ -671,7 +671,7 @@ public class Logica implements Observer
 				//---------------
 				//estadoRonda+=1;
 				mostrarBalance="yes";
-			} else if ((mouseX>755 && mouseX<865) && (mouseY>425 && mouseY<520)){
+			} else if ((mouseX>755 && mouseX<865) && (mouseY>425 && mouseY<520) && mostrarBalance==null){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 9.0f); 
 				if(startNode!=null){
