@@ -438,7 +438,7 @@ public class Logica implements Observer{
 			
 			break;
 			
-		case 3:
+		case 2:
 			
 			app.image(pantallasFinales[2], 0, 0);
 			break;
