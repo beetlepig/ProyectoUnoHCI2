@@ -7,6 +7,7 @@ import java.util.Observer;
 import Modelo.PathFinder;
 import Serializable.Balance;
 import Serializable.BalanceCompleto;
+import Serializable.GanadorMensaje;
 import Serializable.Mensaje;
 import pathfinder.GraphNode;
 import processing.core.PApplet;
@@ -18,6 +19,7 @@ public class Logica implements Observer{
   
   int estados=0;
   int estadoSegundaPantalla=0;
+  int tipoDePantallaFinal=0;
   
   boolean checkInstrucciones=false;
   boolean ckeckPopUp;
@@ -56,13 +58,18 @@ public class Logica implements Observer{
     PImage energia[];
     PImage sugerirImg;
     PImage escogerImg;
+    PImage pantallasFinales[];
     
     short acumuladoDesiciones;
     
-    private short energiaInicial=130;
+    private short energiaInicial=140;
     
     
     private short energiaCiervo=20;
+    
+    
+    boolean gane;
+    boolean elOtroJugadorGano;
     
 	
 	public Logica(PApplet app) {
@@ -99,6 +106,10 @@ public class Logica implements Observer{
 		energia= new PImage[20];
 		sugerirImg=  app.loadImage("../data/Insumos/Jugador 1 - sugiere-8.png");
 		escogerImg=  app.loadImage("../data/Insumos/Jugador 1 - ir-8.png");
+		pantallasFinales= new PImage[3];
+		pantallasFinales[0]= app.loadImage("../data/Insumos/Perdiste.png");
+		pantallasFinales[1]= app.loadImage("../data/Insumos/Ganaste.png");
+		pantallasFinales[2]= app.loadImage("../data/Insumos/ambosganan.png");
 		
 		for (int i = 0; i < 19; i++) {
 			energia[i]=app.loadImage("../data/Insumos/Energia "+(i+1)+".png");
@@ -129,7 +140,7 @@ public class Logica implements Observer{
 			
 		case 3:
 			
-			
+			cuartaPantalla();
 			
 			
 			break;
@@ -333,7 +344,9 @@ public class Logica implements Observer{
 			if(g!=null){
 				posicionesJugador(g);
 				}
+			if(rutas!=null){
 			rutas.pintar();
+			}
 			
 			break;
 			
@@ -411,6 +424,26 @@ public class Logica implements Observer{
 			
 			break;
 		}
+	}
+	
+	
+	private void cuartaPantalla (){
+		switch (tipoDePantallaFinal) {
+		case 0:
+			app.image(pantallasFinales[0], 0, 0);
+			break;
+
+		case 1:
+			app.image(pantallasFinales[1], 0, 0);
+			
+			break;
+			
+		case 3:
+			
+			app.image(pantallasFinales[2], 0, 0);
+			break;
+		}
+		
 	}
 	
 	
@@ -547,7 +580,7 @@ public class Logica implements Observer{
 					//estadoRonda+=1;
 					mostrarBalance="yes";
 					
-			} else if((mouseX>865 && mouseX<960) && (mouseY>380 && mouseY<415)){
+			} else if((mouseX>860 && mouseX<960) && (mouseY>330 && mouseY<437)){
 				System.out.println("derecha");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX+20 - rutas.offX, g[0].yf()+rutas.offY - rutas.offY, 0, 10.0f); 
 				if(startNode!=null){
@@ -576,7 +609,7 @@ public class Logica implements Observer{
 				mostrarBalance="yes";
 				
 				
-			} else if ((mouseX>755 && mouseX<860) && (mouseY>425 && mouseY<520)){
+			} else if ((mouseX>755 && mouseX<865) && (mouseY>425 && mouseY<520)){
 				System.out.println("atras");
 				startNode = rutas.gs.getNodeAt(g[0].xf()+rutas.offX - rutas.offX, g[0].yf()+rutas.offY+20 - rutas.offY, 0, 10.0f); 
 				if(startNode!=null){
@@ -685,18 +718,35 @@ public class Logica implements Observer{
 							}
 							
 								if(ckeckPopUp && checkPopUpOtroJugador){
-									estadoRonda=0;
+									
 									ckeckPopUp=false;
+									checkPopUpOtroJugador=false;
 									checkInstruccionesOtroJugador=false;
 									sugerencia=null;
 									mostrarBalance=null;
 									mj=null;
 									bl=null;
 									balanceCo=null;
+									estadoRonda=0;
 									if(energiaInicial>0){
 										energiaInicial-=10;
 										}
 									acumuladoDesiciones=0;
+									if (energiaInicial==0){
+										tipoDePantallaFinal=0;
+										estados=3;
+									}
+									
+									if(gane && elOtroJugadorGano){
+										estados=3;
+										tipoDePantallaFinal=2;
+									} else if(elOtroJugadorGano && !gane){
+										tipoDePantallaFinal=0;
+										estados=3;
+									}  else if(gane && !elOtroJugadorGano){
+										tipoDePantallaFinal=1;
+										estados=3;
+									}
 									
 								}
 								
@@ -722,7 +772,14 @@ public class Logica implements Observer{
 									}
 									estadoRonda+=1;
 								}
-							
+								//para ver si llegue y gane
+								
+								if(g!=null && g[0].id() == g[g.length-1].id() && !gane){
+									gane=true;
+								
+									com.enviarObjeto(new GanadorMensaje(gane));
+								}
+								
 							
 							break;
 						}
@@ -782,6 +839,8 @@ public class Logica implements Observer{
 			balanceCo= (BalanceCompleto) ob;
 			elOtroJugadorConfio= balanceCo.confie;
 			
+		} else if(ob instanceof GanadorMensaje){
+			elOtroJugadorGano=true;
 		}
 		
 	}
