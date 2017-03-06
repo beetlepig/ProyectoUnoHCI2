@@ -740,9 +740,9 @@ public class Logica implements Observer
 				app.fill(255,255, 255);
 				app.pushStyle();
 				//app.imageMode(app.CENTER);
-				//app.image(elOtro, r[0].xf(), r[0].xf());
+				app.image(tu, r[0].xf()-5, r[0].yf()-5);
 				//app.popStyle();
-				app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
+			//	app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
 				// Route end node
 				app.stroke(0, 250, 0);
 				app.fill(0, 250, 0);

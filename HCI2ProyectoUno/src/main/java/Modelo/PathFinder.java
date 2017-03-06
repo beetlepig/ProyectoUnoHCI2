@@ -42,6 +42,8 @@ public class PathFinder {
 	boolean selectMode = false;
 	long time;
 	PApplet app;
+	
+	PImage elOtro;
 
 	public PathFinder(PApplet app, int comienzo, int fin) {
 		this.app=app;
@@ -76,6 +78,8 @@ public class PathFinder {
 		usePathFinder(pathFinder);
 		System.out.println("--------------Pasos realizados-----------");
 		System.out.println(getSequence());
+		
+		elOtro= app.loadImage("../data/Insumos/elotro.png");
 	}
  
 	public void pintar() {
@@ -90,7 +94,7 @@ public class PathFinder {
 		 * if(showOption[0] || graphNo == 3) drawNodes();
 		 */
 
-		drawRoute(rNodes, app.color(0, 250, 0), 5.0f); //Esta linea de codigo dibuja la rota.
+		drawRoute(rNodes, app.color(255, 255, 227), 5.0f); //Esta linea de codigo dibuja la rota.
 
 		if (selectMode) {// linea feedback de seleccion de nodos.
 			app.stroke(0);
@@ -267,7 +271,8 @@ public class PathFinder {
 			app.strokeWeight(2.0f);
 			app.stroke(200, 0, 0);
 			app.fill(200, 0, 0);
-			app.ellipse(r[0].xf(), r[0].yf(), nodeSize, nodeSize);
+			app.image(elOtro, r[0].xf()-6, r[0].yf()-6);
+		//	app.ellipse(r[0].xf(), r[0].yf(), nodeSize, nodeSize);
 			// Route end node
 			app.stroke(0, 250, 0);
 			app.fill(0, 250, 0);
