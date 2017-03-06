@@ -769,7 +769,7 @@ public class Logica implements Observer
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
 									rutas= new PathFinder(app,105,156);
 									GraphNode[] o= rutas.rNodes;
-									app.delay(200);
+						
 								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
 									
@@ -850,6 +850,7 @@ public class Logica implements Observer
 								ckeckPopUp=false;
 								checkPopUpOtroJugador=false;
 								checkInstruccionesOtroJugador=false;
+								confie=false;
 								acumuladoDesiciones=0;
 								//-----------------------------
 								

@@ -564,7 +564,7 @@ public class Logica implements Observer{
 					
 				   com.enviarObjeto(new Mensaje(startNode));
 				   
-					if(sugerencia.equals("izq")){
+					if(bl.indicacion.equals("izq")){
 						confie=true;
 					} else{
 						confie=false;
@@ -620,7 +620,7 @@ public class Logica implements Observer{
 				com.enviarObjeto(new Mensaje(startNode));
 				
 				
-				if(sugerencia.equals("abajo")){
+				if(bl.indicacion.equals("abajo")){
 					confie=true;
 				} else{
 					confie=false;
@@ -728,7 +728,9 @@ public class Logica implements Observer{
 									mj=null;
 									bl=null;
 									balanceCo=null;
+									confie=false;
 									estadoRonda=0;
+									
 									if(energiaInicial>0){
 										energiaInicial-=10;
 										}

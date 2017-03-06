@@ -94,11 +94,11 @@ System.out.println("esperando cliente");
 
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			//e.printStackTrace();
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
