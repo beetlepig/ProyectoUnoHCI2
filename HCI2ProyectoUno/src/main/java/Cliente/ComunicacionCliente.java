@@ -39,7 +39,7 @@ public class ComunicacionCliente extends Observable{
 			public void run() {
 				while(servidor ==null){
 					try {
-						servidor = new Socket(InetAddress.getByName("127.0.0.1"), puerto);
+						servidor = new Socket(InetAddress.getByName("172.30.164.43"), puerto);
 						System.out.println("exito!");
 						new Thread(hilo()).start(); //si se conecta empiezo hilo para comenzar a recibir
 						

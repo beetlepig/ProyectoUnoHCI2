@@ -378,40 +378,40 @@ public class Logica implements Observer{
 			
 			
 			if(confie){
-			    app.text("confié en el otro jugador", 370, 300);
+			    app.println("confié en el otro jugador");
 			} else if(!confie) {
-				app.text("no confié en el otro jugador", 370, 300);
+				app.println("no confié en el otro jugador");
 			}
 			
 			if(dijeVerdad){
-			app.text("Dije la verdad", 370, 350);
+			app.println("Dije la verdad");
 			} else {
-				app.text("no dije la verdad", 370, 350);
+				app.println("no dije la verdad");
 			}
 			
 			if(elOtroJugadorConfio){
-				app.text("el otro jugador confio", 370, 400);
+				app.println("el otro jugador confio");
 				} else {
-					app.text("el otro jugador no confio", 370, 400);
+					app.println("el otro jugador no confio");
 				}
 			
-			app.text("el acumulado es: "+acumuladoDesiciones, 250,200);
+			app.println("el acumulado es: "+acumuladoDesiciones);
 			if(acumuladoDesiciones==0){
 				app.image(balanceConfianza[0], 0, 0);
-			app.text("el balance es: 0%", 200, 200);
+			app.println("el balance es: 0%");
 			} else if(acumuladoDesiciones==1){
 				app.image(balanceConfianza[1], 0, 0);
-				app.text("el balance es: 25%", 250, 150);
+				app.println("el balance es: 25%");
 			}
 			else if(acumuladoDesiciones==2){
 				app.image(balanceConfianza[2], 0, 0);
-				app.text("el balance es: 50%", 250, 150);
+				app.println("el balance es: 50%");
 			} else if(acumuladoDesiciones==3){
 				app.image(balanceConfianza[3], 0, 0);
-				app.text("el balance es: 75%", 250, 150);
+				app.println("el balance es: 75%");
 			} else if(acumuladoDesiciones==4){
 				app.image(balanceConfianza[4], 0, 0);
-				app.text("el balance es: 100%", 250, 150);
+				app.println("el balance es: 100%");
 			}
 			
 			if(ckeckPopUp){
