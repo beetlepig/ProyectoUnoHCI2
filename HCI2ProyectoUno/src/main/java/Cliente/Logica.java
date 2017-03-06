@@ -370,22 +370,48 @@ public class Logica implements Observer{
 		//	app.rect(400,300, 400, 400);
 			app.fill(50);
 			app.text("aqui va el balance de confianza", 370, 230);
+			if(verdadOtroJugador){
+			    app.text("El otro jugador sugurio: "+sugerencia +". dijo : verdad", 370, 250);
+			} else if(!verdadOtroJugador) {
+				app.text("El otro jugador sugurio: "+sugerencia +". dijo : mentira", 370, 250);
+			}
+			
+			
+			if(confie){
+			    app.text("confié en el otro jugador", 370, 300);
+			} else if(!confie) {
+				app.text("no confié en el otro jugador", 370, 300);
+			}
+			
+			if(dijeVerdad){
+			app.text("Dije la verdad", 370, 350);
+			} else {
+				app.text("no dije la verdad", 370, 350);
+			}
+			
+			if(elOtroJugadorConfio){
+				app.text("el otro jugador confio", 370, 400);
+				} else {
+					app.text("el otro jugador no confio", 370, 400);
+				}
+			
+			app.text("el acumulado es: "+acumuladoDesiciones, 250,200);
 			if(acumuladoDesiciones==0){
 				app.image(balanceConfianza[0], 0, 0);
-			
+			app.text("el balance es: 0%", 200, 200);
 			} else if(acumuladoDesiciones==1){
 				app.image(balanceConfianza[1], 0, 0);
-				
+				app.text("el balance es: 25%", 250, 150);
 			}
 			else if(acumuladoDesiciones==2){
 				app.image(balanceConfianza[2], 0, 0);
-			
+				app.text("el balance es: 50%", 250, 150);
 			} else if(acumuladoDesiciones==3){
 				app.image(balanceConfianza[3], 0, 0);
-				
+				app.text("el balance es: 75%", 250, 150);
 			} else if(acumuladoDesiciones==4){
 				app.image(balanceConfianza[4], 0, 0);
-			
+				app.text("el balance es: 100%", 250, 150);
 			}
 			
 			if(ckeckPopUp){
@@ -678,6 +704,7 @@ public class Logica implements Observer{
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
 									rutas= new PathFinder(app,311,176);
 									GraphNode[] o= rutas.rNodes;
+									app.delay(200);
 									   com.enviarObjeto(new Mensaje(o));
 								estados=2;
 								}
@@ -710,55 +737,6 @@ public class Logica implements Observer{
 										tipoDePantallaFinal=0;
 										estados=3;
 									}
-									
-									//-------------------------
-									if(verdadOtroJugador){
-									    app.println("El otro jugador sugurio: "+sugerencia +". dijo : verdad");
-									} else if(!verdadOtroJugador) {
-										app.println("El otro jugador sugurio: "+sugerencia +". dijo : mentira");
-									}
-									
-									
-									if(confie){
-									    app.println("confié en el otro jugador");
-									} else if(!confie) {
-										app.println("no confié en el otro jugador");
-									}
-									
-									if(dijeVerdad){
-									app.println("Dije la verdad");
-									} else {
-										app.println("no dije la verdad");
-									}
-									
-									if(elOtroJugadorConfio){
-										app.println("el otro jugador confio");
-										} else {
-											app.println("el otro jugador no confio");
-										}
-									
-									app.println("el acumulado es: "+acumuladoDesiciones);
-									if(acumuladoDesiciones==0){
-										
-									app.println("el balance es: 0%");
-									} else if(acumuladoDesiciones==1){
-										
-										app.println("el balance es: 25%");
-									}
-									else if(acumuladoDesiciones==2){
-									
-										app.println("el balance es: 50% ");
-									} else if(acumuladoDesiciones==3){
-									
-										app.println("el balance es: 75%");
-									} else if(acumuladoDesiciones==4){
-									
-										app.println("el balance es: 100%");
-									}
-									//-----------------------------------
-									
-									
-									
 									
 									if(gane && elOtroJugadorGano){
 										estados=3;

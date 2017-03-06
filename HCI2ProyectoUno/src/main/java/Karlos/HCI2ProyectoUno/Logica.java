@@ -769,6 +769,7 @@ public class Logica implements Observer
 								if(checkInstrucciones && checkInstruccionesOtroJugador){
 									rutas= new PathFinder(app,105,156);
 									GraphNode[] o= rutas.rNodes;
+									app.delay(200);
 								   server.enviarObjeto(new Mensaje(o));
 									estado=2;
 									
@@ -784,6 +785,62 @@ public class Logica implements Observer
 							}
 							
 							if(ckeckPopUp && checkPopUpOtroJugador){
+								//-----------------------
+								app.println("aqui va el balance de confianza");
+								if(verdadOtroJugador){
+								    app.println("El otro jugador sugurio: "+sugerencia +". dijo : verdad");
+								} else if(!verdadOtroJugador) {
+									app.println("El otro jugador sugurio: "+sugerencia +". dijo : mentira");
+								}
+								
+								if(confie){
+								    app.println("confié en el otro jugador");
+								} else if(!confie) {
+									app.println("no confié en el otro jugador");
+								}
+								
+								if(dijeVerdad){
+									app.println("Dije la verdad");
+									} else {
+										app.println("no dije la verdad");
+									}
+									
+									if(elOtroJugadorConfio){
+										app.println("el otro jugador confio");
+										} else {
+											app.println("el otro jugador no confio");
+										}
+									
+									app.println("el acumulado es: "+acumuladoDesiciones);
+									if(acumuladoDesiciones==0){
+									
+									app.println("el balance es: 0%");
+									
+									} else if(acumuladoDesiciones==1){
+										
+										app.println("el balance es: 25%");
+										
+									}
+									else if(acumuladoDesiciones==2){
+										
+										app.println("el balance es: 50%");
+										
+									} else if(acumuladoDesiciones==3){
+										
+										app.println("el balance es: 75%");
+										
+									} else if(acumuladoDesiciones==4){
+									
+										app.println("el balance es: 100%");
+										
+									}
+								
+								
+								
+								
+								
+								
+								//-------------------------
 								checkInstruccionesOtroJugador=false;
 								sugerencia=null;
 								mostrarBalance=null;
@@ -794,6 +851,10 @@ public class Logica implements Observer
 								checkPopUpOtroJugador=false;
 								checkInstruccionesOtroJugador=false;
 								acumuladoDesiciones=0;
+								//-----------------------------
+								
+								
+								//-------------------------------
 								estadoRonda=0;
 								if(energiaInicial>0){
 								energiaInicial-=10;
