@@ -370,48 +370,22 @@ public class Logica implements Observer{
 		//	app.rect(400,300, 400, 400);
 			app.fill(50);
 			app.text("aqui va el balance de confianza", 370, 230);
-			if(verdadOtroJugador){
-			    app.text("El otro jugador sugurio: "+sugerencia +". dijo : verdad", 370, 250);
-			} else if(!verdadOtroJugador) {
-				app.text("El otro jugador sugurio: "+sugerencia +". dijo : mentira", 370, 250);
-			}
-			
-			
-			if(confie){
-			    app.println("confié en el otro jugador");
-			} else if(!confie) {
-				app.println("no confié en el otro jugador");
-			}
-			
-			if(dijeVerdad){
-			app.println("Dije la verdad");
-			} else {
-				app.println("no dije la verdad");
-			}
-			
-			if(elOtroJugadorConfio){
-				app.println("el otro jugador confio");
-				} else {
-					app.println("el otro jugador no confio");
-				}
-			
-			app.println("el acumulado es: "+acumuladoDesiciones);
 			if(acumuladoDesiciones==0){
 				app.image(balanceConfianza[0], 0, 0);
-			app.println("el balance es: 0%");
+			
 			} else if(acumuladoDesiciones==1){
 				app.image(balanceConfianza[1], 0, 0);
-				app.println("el balance es: 25%");
+				
 			}
 			else if(acumuladoDesiciones==2){
 				app.image(balanceConfianza[2], 0, 0);
-				app.println("el balance es: 50%");
+			
 			} else if(acumuladoDesiciones==3){
 				app.image(balanceConfianza[3], 0, 0);
-				app.println("el balance es: 75%");
+				
 			} else if(acumuladoDesiciones==4){
 				app.image(balanceConfianza[4], 0, 0);
-				app.println("el balance es: 100%");
+			
 			}
 			
 			if(ckeckPopUp){
@@ -736,6 +710,55 @@ public class Logica implements Observer{
 										tipoDePantallaFinal=0;
 										estados=3;
 									}
+									
+									//-------------------------
+									if(verdadOtroJugador){
+									    app.println("El otro jugador sugurio: "+sugerencia +". dijo : verdad");
+									} else if(!verdadOtroJugador) {
+										app.println("El otro jugador sugurio: "+sugerencia +". dijo : mentira");
+									}
+									
+									
+									if(confie){
+									    app.println("confié en el otro jugador");
+									} else if(!confie) {
+										app.println("no confié en el otro jugador");
+									}
+									
+									if(dijeVerdad){
+									app.println("Dije la verdad");
+									} else {
+										app.println("no dije la verdad");
+									}
+									
+									if(elOtroJugadorConfio){
+										app.println("el otro jugador confio");
+										} else {
+											app.println("el otro jugador no confio");
+										}
+									
+									app.println("el acumulado es: "+acumuladoDesiciones);
+									if(acumuladoDesiciones==0){
+										
+									app.println("el balance es: 0%");
+									} else if(acumuladoDesiciones==1){
+										
+										app.println("el balance es: 25%");
+									}
+									else if(acumuladoDesiciones==2){
+									
+										app.println("el balance es: 50%");
+									} else if(acumuladoDesiciones==3){
+									
+										app.println("el balance es: 75%");
+									} else if(acumuladoDesiciones==4){
+									
+										app.println("el balance es: 100%");
+									}
+									//-----------------------------------
+									
+									
+									
 									
 									if(gane && elOtroJugadorGano){
 										estados=3;
