@@ -67,6 +67,9 @@ public class Logica implements Observer
     PImage sugerirImg;
     PImage escogerImg;
     PImage pantallasFinales[];
+    PImage tu;
+    PImage elOtro;
+    
 	
 	String mostrarBalance=null;
 	
@@ -115,6 +118,9 @@ public class Logica implements Observer
 		pantallasFinales[0]= app.loadImage("../data/Insumos/Perdiste.png");
 		pantallasFinales[1]= app.loadImage("../data/Insumos/Ganaste.png");
 		pantallasFinales[2]= app.loadImage("../data/Insumos/ambosganan.png");
+		
+		tu= app.loadImage("../data/Insumos/tu.png");
+		elOtro= app.loadImage("../data/Insumos/elotro.png");
 		
 		for (int i = 0; i < 19; i++) {
 			energia[i]=app.loadImage("../data/Insumos/Energia "+(i+1)+".png");
@@ -732,6 +738,10 @@ public class Logica implements Observer
 				app.strokeWeight(2.0f);
 				app.stroke(255, 255, 255);
 				app.fill(255,255, 255);
+				app.pushStyle();
+				//app.imageMode(app.CENTER);
+				//app.image(elOtro, r[0].xf(), r[0].xf());
+				//app.popStyle();
 				app.ellipse(r[0].xf(), r[0].yf(), 10, 10);
 				// Route end node
 				app.stroke(0, 250, 0);
