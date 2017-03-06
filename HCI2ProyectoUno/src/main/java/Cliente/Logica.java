@@ -747,7 +747,7 @@ public class Logica implements Observer{
 									}
 									else if(acumuladoDesiciones==2){
 									
-										app.println("el balance es: 50%");
+										app.println("el balance es: 50% ");
 									} else if(acumuladoDesiciones==3){
 									
 										app.println("el balance es: 75%");
